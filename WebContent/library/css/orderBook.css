@@ -1,5 +1,4 @@
-table {
-	font-family: "Lato", "sans-serif";
+table {	
 	table-layout: relative;
 	border-collapse: collapse;
 	margin-bottom: 3em;
@@ -17,7 +16,7 @@ tr {
 }
 
 table tr:nth-child(even) {
-	background-color: #ffa500;
+	background-color: rgba(255, 213, 135, 0.85);
 }
 
 table tr:nth-child(odd) {
@@ -43,3 +42,5 @@ body {
     background-repeat: no-repeat;
     margin-right: 200px;
 }
+/* .modal-header, .modal-footer{background: #4682b4, color: #fff;}
+.btn-primary {    color: #fff;    background-color: #102e48;    border-color: #1e255a;} */

@@ -6,12 +6,13 @@ app.controller('myCtrl', function($scope, $http, $window) {
 
 	//view all records start
 	$scope.readRecords = function(){
-		/*$("#banner").hide();*/
+		$("#banner").hide();
 		$http.get("http://10.30.54.160:8082/sow/fetchAllSOW")		
 	    .then(function(response) {
 	        $scope.sowDetails = response.data;
 	    });
 		$("#update_user_modal").modal("hide");
+		
 	};	
 	//view all records end	
 	
@@ -111,8 +112,9 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		.then(function(response) {
 			$scope.sowDetails = response.data;
 			$scope.readRecords();
+			alert("Record Added Successfully")
  		});
-         $window.location.reload();
+         //$window.location.reload();
          $("#add_new_record_modal").modal("hide");			
         }
 	}
@@ -128,11 +130,8 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	        	 
 	         }
     			 
-		}else if($(this).val() == 'Fixed Bid'){
-			$('#resCount').html("Resource Count");
-			$("#form_resCount").val("");
 		}else{
-			$('#resCount').html("Res Count");
+			$('#resCount').html("Resource Count");
 			$("#form_resCount").val("");
 		}        	
      });	
@@ -281,6 +280,12 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	};
 	//convert currency value end
 	
-	
+	function isNumberKey(evt) {
+		var charCode = (evt.which) ? evt.which : event.keyCode;
+		if (((charCode < 48 && charCode != 8) || charCode > 57))
+			return false;
+
+		return true;
+	}
 	
 });

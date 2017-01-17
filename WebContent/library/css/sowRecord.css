@@ -31,5 +31,5 @@ body {
 .table-responsive {
 	margin-top: 30px;
 	height: 500px !important;
-	overflow: scroll;
+	overflow-x: visible;
 }

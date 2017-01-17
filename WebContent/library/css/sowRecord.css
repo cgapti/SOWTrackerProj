@@ -1,0 +1,35 @@
+.modal-dialog {
+	width: 900px;
+}
+
+body {
+	font-size: 12px;
+}
+
+.table>thead:first-child>tr:first-child>th {
+	background: #12332f;
+	color: #fff;
+	font-weight: normal;
+}
+
+.form-control {
+	font-size: 12px;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
+	{
+	background-color: #333333 !important;
+	opacity: 1;
+	color: #999;
+}
+
+.table-striped>tbody>tr:nth-child(2n+1)>td, .table-striped>tbody>tr:nth-child(2n+1)>th
+	{
+	background-color: #d9edf7;
+}
+
+.table-responsive {
+	margin-top: 30px;
+	height: 500px !important;
+	overflow: scroll;
+}

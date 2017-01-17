@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html ng-app="sowTrackerApp">
+<head>
+<meta charset="utf-8" />
+<title>SOW Tracker</title>
+<style>
+body {
+	background-image: url("library/image/workorder.jpg");
+	background-repeat: no-repeat;
+	margin-left: 10px;
+	margin-right: 150px;
+	background-position: right top;
+	bgcolor: #E6E6FA
+}
+</style>
+</head>
+<body>
+	<div ng-app="orderBookApp" ng-controller="MainCtrl"
+		ng-init="readOrderBook()">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="records_content">
+						<table class="table table-bordered table-striped">
+							<tbody style="overflow: scroll; height: 100px;">
+							<thead>
+								<tr>
+									<th rowspan="2">SOW No</th>
+									<th rowspan="2">Location</th>
+									<th rowspan="2">Owner</th>
+									<th rowspan="2">PID</th>
+									<th rowspan="2">Contract No</th>
+									<th rowspan="2">PO Number</th>
+									<th rowspan="2">Project Details</th>
+									<th rowspan="2">TechM Project Desc.</th>
+									<th rowspan="2">Eng. Model</th>
+									<th rowspan="2">Contract Type</th>
+									<th rowspan="2">Status</th>
+									<th rowspan="2">Start Date</th>
+									<th rowspan="2">End Date</th>
+									<th rowspan="2">SOW Amount</th>
+									<th rowspan="2">Year</th>
+									<th colspan="4">Projections - Q4</th>
+									<th colspan="4">Actuals - Q4</th>
+									<th colspan="4">Projections - Q1</th>
+									<th colspan="4">Actuals - Q1</th>
+									<th colspan="4">Projections - Q2</th>
+									<th colspan="4">Actuals - Q2</th>
+									<th colspan="4">Projections - Q3</th>
+									<th colspan="4">Actuals - Q3</th>
+									<th rowspan="2">Remarks</th>
+									<th rowspan="2">Update</th>
+								</tr>
+								<tr>
+									<th>Jan</th>
+									<th>Feb</th>
+									<th>Mar</th>
+									<th>Sum</th>
+									<th>Jan</th>
+									<th>Feb</th>
+									<th>Mar</th>
+									<th>Sum</th>
+									<th>Apr</th>
+									<th>May</th>
+									<th>Jun</th>
+									<th>Sum</th>
+									<th>Apr</th>
+									<th>May</th>
+									<th>Jun</th>
+									<th>Sum</th>
+									<th>Jul</th>
+									<th>Aug</th>
+									<th>Sept</th>
+									<th>Sum</th>
+									<th>Jul</th>
+									<th>Aug</th>
+									<th>Sept</th>
+									<th>Sum</th>
+									<th>Oct</th>
+									<th>Nov</th>
+									<th>Dec</th>
+									<th>Sum</th>
+									<th>Oct</th>
+									<th>Nov</th>
+									<th>Dec</th>
+									<th>Sum</th>
+								</tr>
+							</thead>
+							<tr
+								ng-repeat="orderBook in orderBookDetails track by $index| orderBy: 'orderBook.sowNo'">
+								<td>{{orderBook.sowNo}}</td>
+								<td>{{orderBook.location}}</td>
+								<td>{{orderBook.owner}}</td>
+								<td>{{orderBook.pId}}</td>
+								<td>{{orderBook.contractNo}}</td>
+								<td>{{orderBook.poNo}}</td>
+								<td>{{orderBook.projectDtls}}</td>
+								<td>{{orderBook.techMPrjDesc}}</td>
+								<td>{{orderBook.engmntModel}}</td>
+								<td>{{contractTypeContract}}</td>
+								<td>{{orderBook.sowStatus}}</td>
+								<td>{{orderBook.sowStartDate | date : "dd-MM-y"}}</td>
+								<td>{{orderBook.sowEndDate | date : "dd-MM-y"}}</td>
+								<td>{{orderBook.sowValuetoUSD}}</td>
+								<td>{{orderBook.finYr}}</td>
+								<td ng-if='orderBook.prjTotal1'>{{orderBook.prjTotal1}}</td>
+								<td ng-if='!orderBook.prjTotal1'></td>
+								<td ng-if='orderBook.prjTotal2'>{{orderBook.prjTotal2}}</td>
+								<td ng-if='!orderBook.prjTotal2'></td>
+								<td ng-if='orderBook.prjTotal3'>{{orderBook.prjTotal3}}</td>
+								<td ng-if='!orderBook.prjTotal3'></td>
+								<td>{{orderBook.prjTotal1--orderBook.prjTotal2--orderBook.prjTotal3}}</td>
+								<td ng-if='orderBook.invoiceTotalAmt1'>{{orderBook.invoiceTotalAmt1}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt1'></td>
+								<td ng-if='orderBook.invoiceTotalAmt2'>{{orderBook.invoiceTotalAmt2}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt2'></td>
+								<td ng-if='orderBook.invoiceTotalAmt3'>{{orderBook.invoiceTotalAmt3}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt3'></td>
+								<td>{{orderBook.invoiceTotalAmt1--orderBook.invoiceTotalAmt2--orderBook.invoiceTotalAmt3}}</td>
+								<td ng-if='orderBook.prjTotal4'>{{orderBook.prjTotal4}}</td>
+								<td ng-if='!orderBook.prjTotal4'></td>
+								<td ng-if='orderBook.prjTotal5'>{{orderBook.prjTotal5}}</td>
+								<td ng-if='!orderBook.prjTotal5'></td>
+								<td ng-if='orderBook.prjTotal6'>{{orderBook.prjTotal6}}</td>
+								<td ng-if='!orderBook.prjTotal6'></td>
+								<td>{{orderBook.prjTotal4--orderBook.prjTotal5--orderBook.prjTotal6}}</td>
+								<td ng-if='orderBook.invoiceTotalAmt4'>{{orderBook.invoiceTotalAmt4}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt4'></td>
+								<td ng-if='orderBook.invoiceTotalAmt5'>{{orderBook.invoiceTotalAmt5}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt5'></td>
+								<td ng-if='orderBook.invoiceTotalAmt6'>{{orderBook.invoiceTotalAmt6}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt6'></td>
+								<td>{{orderBook.invoiceTotalAmt4--orderBook.invoiceTotalAmt5--orderBook.invoiceTotalAmt6}}</td>
+								<td ng-if='orderBook.prjTotal7'>{{orderBook.prjTotal7}}</td>
+								<td ng-if='!orderBook.prjTotal7'></td>
+								<td ng-if='orderBook.prjTotal8'>{{orderBook.prjTotal8}}</td>
+								<td ng-if='!orderBook.prjTotal8'></td>
+								<td ng-if='orderBook.prjTotal9'>{{orderBook.prjTotal9}}</td>
+								<td ng-if='!orderBook.prjTotal9'></td>
+								<td>{{orderBook.prjTotal7--orderBook.prjTotal8--orderBook.prjTotal9}}</td>
+								<td ng-if='orderBook.invoiceTotalAmt7'>{{orderBook.invoiceTotalAmt7}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt7'></td>
+								<td ng-if='orderBook.invoiceTotalAmt8'>{{orderBook.invoiceTotalAmt8}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt8'></td>
+								<td ng-if='orderBook.invoiceTotalAmt9'>{{orderBook.invoiceTotalAmt9}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt9'></td>
+								<td>{{orderBook.invoiceTotalAmt7--orderBook.invoiceTotalAmt8--orderBook.invoiceTotalAmt9}}</td>
+								<td ng-if='orderBook.prjTotal10'>{{orderBook.prjTotal10}}</td>
+								<td ng-if='!orderBook.prjTotal10'></td>
+								<td ng-if='orderBook.prjTotal11'>{{orderBook.prjTotal11}}</td>
+								<td ng-if='!orderBook.prjTotal11'></td>
+								<td ng-if='orderBook.prjTotal12'>{{orderBook.prjTotal12}}</td>
+								<td ng-if='!orderBook.prjTotal12'></td>
+								<td>{{orderBook.prjTotal10--orderBook.prjTotal11--orderBook.prjTotal12}}</td>
+								<td ng-if='orderBook.invoiceTotalAmt10'>{{orderBook.invoiceTotalAmt10}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt10'></td>
+								<td ng-if='orderBook.invoiceTotalAmt11'>{{orderBook.invoiceTotalAmt11}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt11'></td>
+								<td ng-if='orderBook.invoiceTotalAmt12'>{{orderBook.invoiceTotalAmt12}}</td>
+								<td ng-if='!orderBook.invoiceTotalAmt12'></td>
+								<td>{{orderBook.invoiceTotalAmt10--orderBook.invoiceTotalAmt11--actorderBook.invoiceTotalAmt12}}</td>
+								<td>{{sowDetail.sowRemarks}}</td>
+								<td><button
+										ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD);"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#add_new_record_modal">Update</button>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="add_new_record_modal" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header" style="background: #15bc9c">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Order Book Update</h4>
+							<br />
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group">
+										<label for="form_sowR">SOW Reference Number</label>
+									</div>
+								</div>
+								<div class="col-md-7">
+									<div class="form-group">
+										<input id="form_sowNo" type="text" name="sowNo" id="sowNo"
+											class="form-control" placeholder="sowNo" required="required"
+											disabled="disabled" data-error="SOW Reference is required.">
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal-body" style="height: 200px; overflow-y: auto;">
+							<div class="row" id="sowReferenceNo">
+								<div class="col-sm-12">
+									<form id="contact-form" data-toggle="validator" role="form">
+										<div class="controls">
+
+											<div class="row">
+												<div class="col-md-6" id="yearDiv">
+													<div class="form-group" id="yearDiv">
+														<label for="form_Year">Year</label> <select
+															class="form-control" name="Year" id="mySelect"
+															ng-blur="populateMonth()">
+															<option value="0">--Select--</option>
+														</select>
+														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group" id="monthDiv">
+														<label for="form_Month">Month</label> <select
+															class="form-control" name="month" id="month">
+															<option value="0">--Select--</option>
+														</select>
+														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div data-ng-repeat="choice in choices">
+													<div class="col-sm-4">
+														<div class="form-group" id=costDiv{{$index}}>
+															<label for="form_Cost">Cost</label> <input type="number"
+																onkeypress="return isNumberKey(event)"
+																name="Cost{{$index}}" id="Cost{{$index}}"
+																class="form-control" placeholder="Cost"
+																ng-blur="myFunction('cost')">
+														</div>
+													</div>
+
+													<div class="col-sm-4">
+														<div class="form-group" id=resourceDiv{{$index}}>
+															<label for="form_Resources">No of Resources</label> <input
+																type="number" onkeypress="return isNumberKey(event)"
+																name="resources{{$index}}" id="Resources{{$index}}"
+																class="form-control" placeholder="No of Resources"
+																ng-blur="myFunction('resource')">
+														</div>
+													</div>
+
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label for="form_Days">No of Days</label> <input
+																type="number" onkeypress="return isNumberKey(event)"
+																name="days" id="Days{{$index}}" class="form-control"
+																placeholder="No of Days" ng-blur="myFunction(this)">
+															<div class="help-block with-errors"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-sm-2">
+													<div class="form-group">
+														<button class="btn btn-primary" ng-click="addNewChoice()">Add</button>
+														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+												<div class="col-sm-10">
+													<div class="form-group">
+														<button class="btn btn-warning" ng-click="removeChoice()">Remove</button>
+														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="form_Cumulative">Cumulative Cost</label> <input
+															type="text" name="Cost" id="cumulativeCost"
+															class="form-control" disabled="disabled"
+															ng-model="field.cumulativeCost"
+															placeholder="Cumulative Cost">
+														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-default"
+												data-dismiss="modal">Cancel</button>
+											<button type="submit" disabled id="submit"
+												class="btn btn-primary" ng-click="updateOrderBookDetails()">Save</button>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer" style="background: #15bc9c"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

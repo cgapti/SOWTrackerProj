@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div ng-app="sowRecordApp" ng-controller="myCtrl"
+		ng-init="readRecords()">
+		<div class="container">
+			<div class="row">
+				<form class="form-inline">
+					<div class="col-md-4">
+						<label for="search_index" class="input-lg col-md-3"
+							style="width: 180px; clear: left; text-align: right; padding-right: 20px;">Search:</label>
+						<input class="form-control input-lg col-lg-24" id="search_index"
+							type="text" placeholder="Enter the text to search" />
+					</div>
+					<div class="col-md-6">
+						<button class="btn btn-primary pull-right input-lg"
+							style="color: #0000;" type="submit" data-toggle="modal"
+							data-target="#add_new_record_modal" ng-click="sowNoPopulate()">Add
+							New Record</button>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>SOW Reference #*</th>
+									<th>PID</th>
+									<th>Contract No</th>
+									<th>PO Ref #</th>
+									<th>Owner</th>
+									<th>Engagement Model</th>
+									<th>Project Details</th>
+									<th>Resource Count</th>
+									<th>SOW Value ( USD)</th>
+									<th>Value (mn)</th>
+									<th>SOW Value (SGD)</th>
+									<th>SOW Value (MYR)</th>
+									<th>SOW Value (INR)</th>
+									<th>Contract Currency (USD, SGD,MYR,INR)</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Status of the SOW/PO/Contract</th>
+									<th>Location</th>
+									<th>Business Area</th>
+									<th>Delivery SPOC</th>
+									<th>Remarks</th>
+									<th>Customer TO SPOC</th>
+									<th>Customer CC SPOC</th>
+									<th>Delivery Model(Staff Aug)</th>
+									<th>Update</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr ng-show="sowDetails.length != 0"
+									ng-repeat="sowDetail in sowDetails">
+									<td>{{sowDetail.sowNo}}</td>
+									<td>{{sowDetail.pId}}</td>
+									<td>{{sowDetail.contractNo}}</td>
+									<td>{{sowDetail.poNo}}</td>
+									<td>{{sowDetail.owner}}</td>
+									<td>{{sowDetail.engmntModel}}</td>
+									<td>{{sowDetail.projectDtls}}</td>
+									<td>{{sowDetail.resCount}}</td>
+									<td>{{sowDetail.sowValueUSD}}</td>
+									<td>{{sowDetail.valueMillion}}</td>
+									<td>{{sowDetail.sowValueSgd}}</td>
+									<td>{{sowDetail.sowValueMyr}}</td>
+									<td>{{sowDetail.sowValueInr}}</td>
+									<td>{{sowDetail.contractCurrency}}</td>
+									<td>{{sowDetail.sowStartDate | date:'MM-dd-yyyy'}}</td>
+									<td>{{sowDetail.sowEndDate | date:'MM-dd-yyyy'}}</td>
+									<td>{{sowDetail.sowStatus}}</td>
+									<td>{{sowDetail.location}}</td>
+									<td>{{sowDetail.businessArea}}</td>
+									<td>{{sowDetail.deliverySpoc}}</td>
+									<td>{{sowDetail.sowRemarks}}</td>
+									<td>{{sowDetail.customerToSpoc}}</td>
+									<td>{{sowDetail.customerCcSpoc}}</td>
+									<td>{{sowDetail.deliveryModel}}</td>
+									<td><button ng-click="GetUserDetails(sowDetail.sowNo);"
+											class="btn btn-warning">Update</button></td>
+								</tr>
+								<tr>
+									<td ng-show="sowDetails.length == 0" colspan="25"
+										id="noTableValue" style="font-size: 30px; text-align: center;">No
+										datas available.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- Bootstrap Modals Modal - Add New Record/User -->
+		<div class="modal fade" id="add_new_record_modal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Add New Record</h4>
+					</div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<form id="contact-form" name="form">
+									<div class="controls">
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="form-group">
+													<span style="color: red; font-size: 12px;">(*)
+														Mandatory Fields</span>
+
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowR">SOW Reference <span
+														style="color: red; font-size: 12px;">*</span></label> <input
+														id="form_sowNo" type="text" name="sowNo"
+														ng-readonly="true" ng-model="formData.sowNo"
+														class="form-control" placeholder="SOW XXX/SCB/TM"
+														value="formData.sowNo=$scope.formData[0].sowNo" required />
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_pId">PID</label> <input id="form_pId"
+														type="number" name="pId" ng-model="formData.pId"
+														class="form-control" placeholder="PID" min="0">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_contactNo">Contract No</label> <input
+														id="form_contractNo" type="text" name="contractNo"
+														ng-model="formData.contractNo" class="form-control"
+														placeholder="Contract No" min="0">
+												</div>
+											</div>
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_phone">Po No</label> <input id="form_poNo"
+														type="number" name="poNo" ng-model="formData.poNo"
+														class="form-control" placeholder="Po No" min="0">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_owner">Owner <span
+														style="color: red; font-size: 12px;"> *</span></label> <select
+														id="form_owner" name="owner" ng-model="formData.owner"
+														class="form-control">
+														<option value="">Select Owner</option>
+														<option value="TechMG">TechM</option>
+														<option value="SofGen">SofGen</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_engmntModel">Engagement Model<span
+														style="color: red; font-size: 12px;"> *</span></label> <select
+														id="form_engmntModel" name="engmntModel"
+														ng-model="formData.engmntModel" class="form-control">
+														<option value="">Select</option>
+														<option value="T and M">T and M</option>
+														<option value="Fixed Bid">Fixed Bid</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_resCount" id="resCount">Resource
+														Count</label> <input id="form_resCount" type="number"
+														name="resCount" ng-model="formData.resCount"
+														class="form-control" placeholder="Resource Count" min="0">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_projectDtls">Project Details <span
+														style="color: red; font-size: 12px;"> *</span></label> <input
+														id="form_projectDtls" type="text" name="projectDtls"
+														ng-model="formData.projectDtls" class="form-control"
+														placeholder="Project Details">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_contractCurrency">Contract
+														Currency<span style="color: red; font-size: 12px;">
+															*</span>
+													</label> <select id="form_contractCurrency" name="contractCurrency"
+														ng-model="formData.contractCurrency" class="form-control"
+														ng-change="updateCurVal(formData.contractCurrency)">
+														<option value="">Select Currency</option>
+														<option value="USD">USD</option>
+														<option value="SGD">SGD</option>
+														<option value="MYR">MYR</option>
+														<option value="INR">INR</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowValueUSD">SOW Value USD</label> <input
+														id="form_sowValueUSD" type="number" name="sowValue"
+														ng-disabled="valDisabledUSD"
+														ng-model="formData.sowValueUSD" class="form-control"
+														placeholder="SOW Value USD"
+														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueUSD)">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_valueMillion">Value Million</label> <input
+														id="form_valueMillion" type="number" name="valueMillion"
+														ng-readonly="true" ng-model="formData.valueMillion"
+														class="form-control" placeholder="Value Million">
+												</div>
+											</div>
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowValueSgd">SOW Value SGD</label> <input
+														id="form_sowValueSgd" type="number"
+														ng-disabled="valDisabledSGD"
+														ng-blur="changeCurrency(formData.contractCurrency,formData.sowValueSgd);"
+														name="sowValueSgd" ng-model="formData.sowValueSgd"
+														class="form-control" placeholder="SOW Value SGD">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowValueMyr">SOW Value MYR</label> <input
+														id="form_sowValueMyr" type="number"
+														ng-disabled="valDisabledMYR"
+														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueMyr);"
+														name="sowValueMyr" ng-model="formData.sowValueMyr"
+														class="form-control" placeholder="SOW Value MYR">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowValueInr">SOW Value INR</label> <input
+														id="form_sowValueInr" type="number"
+														ng-disabled="valDisabledINR"
+														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueInr);"
+														name="sowValueInr" ng-model="formData.sowValueInr"
+														class="form-control" placeholder="SOW Value INR">
+												</div>
+											</div>
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowStartDate">SOW Start Date</label> <input
+														id="form_sowStartDate" type="date" name="sowStartDate"
+														ng-model="formData.sowStartDate" class="form-control"
+														placeholder="SOW Start Date">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowEndDate">SOW End Date</label> <input
+														id="form_sowEndDate" type="date" name="sowEndDate"
+														ng-model="formData.sowEndDate" class="form-control"
+														placeholder="SOW End Date">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_sowStatus">SOW Status <span
+														style="color: red; font-size: 12px;"> *</span></label> <select
+														id="form_sowStatus" name="sowStatus"
+														ng-model="formData.sowStatus" class="form-control">
+														<option value="">Select</option>
+														<option value="Active">Active</option>
+														<option value="Planned">Planned</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_location">Location <span
+														style="color: red; font-size: 12px;"> *</span></label> <select
+														id="form_location" name="location"
+														ng-model="formData.location" class="form-control">
+														<option value="">Select</option>
+														<option value="BGL">BGL</option>
+														<option value="CHN">CHN</option>
+														<option value="KL">KL</option>
+														<option value="SG">SG</option>
+														<option value="UK">UK</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_businessArea">Business Area<span
+														style="color: red; font-size: 12px;"> *</span></label> <select
+														id="form_businessArea" name="businessArea"
+														ng-model="formData.businessArea" class="form-control">
+														<option value="">Select</option>
+														<option value="Core Banking">Core Banking</option>
+														<option value="Corporate & Institutional Banking">Corporate
+															&amp; Institutional Banking</option>
+														<option value="Private Banking">Commercial &amp;
+															Private Banking</option>
+														<option value="Retail Banking">Retail Banking</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_deliverySpoc">Delivery Spoc</label> <select
+														id="form_deliverySpoc" name="deliverySpoc"
+														ng-model="formData.deliverySpoc" class="form-control">
+														<option value="">Select</option>
+														<option value="Christian.Mueller">Christian.Mueller</option>
+														<option value="Kalyan.Gadwal">Kalyan.Gadwal</option>
+														<option value="Karunakarrao.Cherukutota">Karunakarrao.Cherukutota</option>
+														<option value="Madan/Ishwar">Madan/Ishwar</option>
+														<option value="Madan.Singh">Madan.Singh</option>
+														<option value="SofGen">SofGen</option>
+														<option value="Thorsten.Walther">Thorsten.Walther</option>
+													</select>
+												</div>
+											</div>
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_customerToSpoc">Customer To Spoc</label> <input
+														id="form_customerToSpoc" type="text" name="customerToSpoc"
+														ng-model="formData.customerToSpoc" class="form-control"
+														placeholder="customer To Spoc">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_customerCcSpoc">Customer CC Spoc</label> <input
+														id="form_customerCcSpoc" type="text" name="customerCcSpoc"
+														ng-model="formData.customerCcSpoc" class="form-control"
+														placeholder="Customer CC Spoc">
+												</div>
+											</div>
+
+											<input id="form_sowNoSeed" type="hidden" name="sowNoSeed"
+												ng-model="formData.sowNoSeed" class="form-control"
+												placeholder="sowNoSeed">
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="form_deliveryModel">Delivery Model</label> <select
+														id="form_deliveryModel" name="deliveryModel"
+														ng-model="formData.deliveryModel" class="form-control">
+														<option value="">Select</option>
+														<option value="Fixed Price">Fixed Price</option>
+														<option value="Managed Fixed Price">Managed Fixed
+															Price</option>
+														<option value="Managed T&M">Managed T&amp;M</option>
+														<option value="Staff Augmentation">Staff
+															Augmentation</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="form_sowRemarks">SOW Remarks</label>
+													<textarea id="form_sowRemarks" name="sowRemarks"
+														ng-model="formData.sowRemarks" class="form-control"
+														placeholder="SOW Remarks"></textarea>
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-click="cancelRecord()">Cancel</button>
+						<button type="button" class="btn btn-primary"
+							ng-click="addRecord(formData)">Add Record</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Modal -->
+
+
+
+		<!--  Modal - Update User details -->
+		<div class="modal fade" id="update_user_modal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Update</h4>
+					</div>
+					<div class="modal-body">
+						<div class="controls">
+							<div class="col-md-12">
+								<div class="form-group">
+									<span style="color: red; font-size: 12px;">(*) Mandatory
+										Fields</span>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="form_sowR">SOW Reference<span
+											style="color: red; font-size: 12px;">*</span></label> <input
+											id="formModel_sowNo" type="text" name="sowNo"
+											ng-readonly="true" ng-model="formModalData.sowNo"
+											class="form-control" min="0">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="form_pId">PID</label> <input id="formModel_pId"
+											type="number" name="pId" ng-readonly="true"
+											ng-model="formModalData.pId" class="form-control" min="0">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_contactNo">Contract No</label> <input
+											id="formModel_contractNo" type="text" name="contractNo"
+											ng-readonly="true" ng-model="formModalData.contractNo"
+											class="form-control" min="0">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_phone">Po No</label> <input
+											id="formModel_poNo" type="number" name="poNo"
+											ng-readonly="true" ng-model="formModalData.poNo"
+											class="form-control" min="0">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_owner">Owner <span
+											style="color: red; font-size: 12px;">*</span></label> <input
+											id="formModel_owner" type="text" name="owner"
+											ng-readonly="true" ng-model="formModalData.owner"
+											class="form-control" placeholder="Owner"> <select
+											id="formModel_owner" name="owner"
+											ng-model="formModalData.owner" class="form-control">
+											<option value="">Select Owner</option>
+											<option value="TechMG">TechM</option>
+											<option value="SofGen">SofGen</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_engmntModel">Engament Model<span
+											style="color: red; font-size: 12px;"> *</span></label> <input
+											id="formModel_engmntModel" type="text" name="engmntModel"
+											ng-readonly="true" ng-model="formModalData.engmntModel"
+											class="form-control" placeholder="Engagement Model">
+										<select id="formModel_engmntModel" name="engmntModel"
+											ng-model="formModalData.engmntModel" class="form-control">
+											<option value="">Select</option>
+											<option value="T and M">T and M</option>
+											<option value="Fixed Bid">Fixed Bid</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_projectDtls">Project Details<span
+											style="color: red; font-size: 12px;"> *</span></label> <input
+											id="formModel_projectDtls" type="text" name="projectDtls"
+											ng-model="formModalData.projectDtls" class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_resCount">Resource Count</label> <input
+											id="formModel_resCount" type="number" name="resCount"
+											ng-model="formModalData.resCount" class="form-control"
+											min="0">
+
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_contractCurrency">Contract
+											Currency</label> <input id="formModel_contractCurrency" type="text"
+											name="contractCurrency"
+											ng-model="formModalData.contractCurrency"
+											class="form-control" placeholder="Contract Currency" min="0">
+										<select id="formModel_contractCurrency"
+											name="contractCurrency"
+											ng-model="formModalData.contractCurrency"
+											class="form-control"
+											ng-change="updateCurVal(formModalData.contractCurrency)">
+											<option value="">Select Currency</option>
+											<option value="USD">USD</option>
+											<option value="SGD">SGD</option>
+											<option value="MYR">MYR</option>
+											<option value="INR">INR</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowValueUSD">SOW Value USD</label> <input
+											id="formModel_sowValueUSD" type="number" name="sowValueUSD"
+											ng-disabled="valDisabledUSD"
+											ng-model="formModalData.sowValueUSD" class="form-control"
+											min="0"
+											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueUSD)">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_valueMillion">Value Million</label> <input
+											id="formModel_valueMillion" type="number" name="valueMillion"
+											ng-readonly="true" ng-model="formModalData.valueMillion"
+											class="form-control" min="0">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowValueSgd">SOW Value SGD</label> <input
+											id="formModel_sowValueSgd" type="number" name="sowValueSgd"
+											ng-disabled="valDisabledSGD"
+											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueSgd)"
+											ng-model="formModalData.sowValueSgd" class="form-control"
+											min="0">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowValueMyr">SOW Value MYR</label> <input
+											id="formModel_sowValueMyr" type="number" name="sowValueMyr"
+											ng-disabled="valDisabledMYR"
+											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueMyr)"
+											ng-model="formModalData.sowValueMyr" class="form-control"
+											min="0">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowValueInr">SOW Value INR</label> <input
+											id="formModel_sowValueInr" type="number" name="sowValueInr"
+											ng-disabled="valDisabledINR"
+											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueInr)"
+											ng-model="formModalData.sowValueInr" class="form-control"
+											min="0">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowStartDate">SOW Start Date</label> <input
+											id="formModel_sowStartDate" type="text" name="sowStartDate"
+											ng-readonly="true" ng-model="formModalData.sowStartDate"
+											class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowEndDate">SOW End Date</label> <input
+											id="formModel_sowEndDate" type="text" name="sowEndDate"
+											ng-readonly="true" ng-model="formModalData.sowEndDate"
+											class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_sowStatus">SOW Status<span
+											style="color: red; font-size: 12px;"> *</span></label> <input
+											id="formModel_sowStatus" type="text" name="sowStatus"
+											ng-readonly="true" ng-model="formModalData.sowStatus"
+											class="form-control" placeholder="SOW status"> <select
+											id="formModel_sowStatus" name="sowStatus"
+											ng-model="formModalData.sowStatus" class="form-control">
+											<option value="">Select</option>
+											<option value="Active">Active</option>
+											<option value="Planned">Planned</option>
+											<option value="Closed">Closed</option>
+											<option value="SOW Cancelled">SOW Cancelled</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_location">Location<span
+											style="color: red; font-size: 12px;"> *</span></label> <input
+											id="formModel_location" type="text" name="location"
+											ng-readonly="true" ng-model="formModalData.location"
+											class="form-control" placeholder="location"> <select
+											id="formModel_location" name="location"
+											ng-model="formModalData.location" class="form-control">
+											<option value="">Select</option>
+											<option value="BGL">BGL</option>
+											<option value="CHN">CHN</option>
+											<option value="KL">KL</option>
+											<option value="SG">SG</option>
+											<option value="SGP">SGP</option>
+											<option value="UK">UK</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_businessArea">Business Area</label> <input
+											id="formModel_businessArea" type="text" name="businessArea"
+											ng-readonly="true" ng-model="formModalData.businessArea"
+											class="form-control"> <select
+											id="formModel_businessArea" name="businessArea"
+											ng-model="formModalData.businessArea" class="form-control"
+											ng-readonly="true">
+											<option value="">Select</option>
+											<option value="Core Banking">Core Banking</option>
+											<option value="Corporate & Institutional Banking">Corporate
+												&amp; Institutional Banking</option>
+											<option value="Enable 1.2">Enable 1.2</option>
+											<option value="Private Banking">Private Banking</option>
+											<option value="Retail Banking">Retail Banking</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_deliverySpoc">Delivery Spoc</label> <input
+											id="formModel_deliverySpoc" type="text" name="deliverySpoc"
+											ng-readonly="true" ng-model="formModalData.deliverySpoc"
+											class="form-control"> <select
+											id="formModel_deliverySpoc" name="deliverySpoc"
+											ng-readonly="true" ng-model="formModalData.deliverySpoc"
+											class="form-control">
+											<option value="">Select</option>
+											<option value="Christian.Mueller">Christian.Mueller</option>
+											<option value="Kalyan.Gadwal">Kalyan.Gadwal</option>
+											<option value="Karunakarrao.Cherukutota">Karunakarrao.Cherukutota</option>
+											<option value="Madan/Ishwar">Madan/Ishwar</option>
+											<option value="Madan.Singh">Madan.Singh</option>
+											<option value="SofGen">SofGen</option>
+											<option value="Thorsten.Walther">Thorsten.Walther</option>
+										</select>
+									</div>
+								</div>
+
+
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_customerToSpoc">Customer To Spoc</label>
+										<input id="formModel_customerToSpoc" type="text"
+											name="customerToSpoc" ng-readonly="true"
+											ng-model="formModalData.customerToSpoc" class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_customerCcSpoc">Customer CC Spoc</label>
+										<input id="formModel_customerCcSpoc" type="text"
+											name="customerCcSpoc" ng-readonly="true"
+											ng-model="formModalData.customerCcSpoc" class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_deliveryModel">Delivery Model</label> <input
+											id="formModel_deliveryModel" type="text" name="deliveryModel"
+											ng-readonly="true" ng-model="formModalData.deliveryModel"
+											class="form-control"> <select
+											id="formModel_deliveryModel" name="deliveryModel"
+											ng-readonly="true" ng-model="formModalData.deliveryModel"
+											class="form-control">
+											<option value="">Select</option>
+											<option value="Fixed Price">Fixed Price</option>
+											<option value="Managed Fixed Price">Managed Fixed
+												Price</option>
+											<option value="Managed T&M">Managed T&amp;M</option>
+											<option value="Staff Augmentation">Staff
+												Augmentation</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_createdDate">Created Date</label> <input
+											id="formModel_createdDate" type="text" name="createdDate"
+											ng-readonly="true" ng-model="formModalData.createdDate"
+											class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="formModel_createdBy">Created By</label> <input
+											id="formModel_createdBy" type="text" name="createdBy"
+											ng-readonly="true" ng-model="formModalData.createdBy"
+											class="form-control">
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="formModel_sowRemarks">SOW Remarks</label>
+										<textarea id="formModel_sowRemarks" name="sowRemarks"
+											ng-readonly="true" ng-model="formModalData.sowRemarks"
+											class="form-control"></textarea>
+										<input id="formModel_sowRemarks" type="text" name="sowRemarks"
+											ng-readonly="true" ng-model="formModalData.sowRemarks"
+											class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary"
+							ng-click="saveUserDetails(formModalData)">Save Changes</button>
+						<input type="hidden" id="hidden_user_id">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

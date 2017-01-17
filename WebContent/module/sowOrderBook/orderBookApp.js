@@ -201,6 +201,9 @@ app
 												if (ref) {
 													ref["prjTotal"
 													    + cur.month] = cur.prjTotal;
+													ref["invoiceTotalAmt"
+													    + cur.month] = cur.invoiceTotalAmt;
+													
 												} else {
 													var newRow = {
 															"sowNo" : cur.sowNo,

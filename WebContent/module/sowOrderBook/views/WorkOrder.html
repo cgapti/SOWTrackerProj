@@ -160,10 +160,11 @@ body {
 								<td ng-if='!orderBook.invoiceTotalAmt12'></td>
 								<td>{{orderBook.invoiceTotalAmt10--orderBook.invoiceTotalAmt11--actorderBook.invoiceTotalAmt12}}</td>
 								<td>{{sowDetail.sowRemarks}}</td>
-								<td><button
-										ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD);"
+								<td ng-if= 'currentYear == orderBook.finYr'><button
+										ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr);"
 										class="btn btn-primary" data-toggle="modal"
-										data-target="#add_new_record_modal">Update</button>
+										data-target="#add_new_record_modal">Update</button></td>
+								<td ng-if='currentYear != orderBook.finYr'></td>
 							</tr>
 							</tbody>
 						</table>
@@ -207,18 +208,15 @@ body {
 											<div class="row">
 												<div class="col-md-6" id="yearDiv">
 													<div class="form-group" id="yearDiv">
-														<label for="form_Year">Year</label> <select
-															class="form-control" name="Year" id="mySelect"
-															ng-blur="populateMonth()">
-															<option value="0">--Select--</option>
-														</select>
+														<label for="form_Year">Year</label>
+														<input type="text" disabled name="days" id="mySelect" class="form-control"></input>
 														<div class="help-block with-errors"></div>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group" id="monthDiv">
 														<label for="form_Month">Month</label> <select
-															class="form-control" name="month" id="month">
+															class="form-control" name="month" id="month" ng-blur="onMonthChange()">
 															<option value="0">--Select--</option>
 														</select>
 														<div class="help-block with-errors"></div>

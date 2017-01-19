@@ -32,14 +32,17 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	
 	//insert new records
 	$scope.addRecord = function(formData) {		
-		//$scope.formData = {};	
-		var owner 		= 	$("#form_owner option:selected").val();
 		var owner 		= 	$("#form_owner option:selected").val();
 		var engmntModel = 	$("#form_engmntModel option:selected").val();
 		var contractCurrency = 	$("#form_contractCurrency option:selected").val();
 		var sowStatus 	= 	$("#form_sowStatus option:selected").val();
 		var location 	= 	$("#form_location option:selected").val();
 		var businessArea = $("#form_businessArea option:selected").val();
+		
+		var curSowValueUSD = $("#form_sowValueUSD").val();		
+		var curSowValueSGD = $("#form_sowValueSgd").val();
+		var curSowValueMYR = $("#form_sowValueMyr").val();
+		var curSowValueINR = $("#form_sowValueInr").val();
 		
 		var str = $("#form_sowStartDate").val();
         var end = $("#form_sowEndDate").val();
@@ -79,12 +82,43 @@ app.controller('myCtrl', function($scope, $http, $window) {
              alert('Please fill the Project Details');
              $("#form_projectDtls").focus();
              return false;
-         }         
+         }       
 		else if(contractCurrency == ""){
-        	 alert('Please Select Contract Currency');    
-        	 $('#form_contractCurrency').focus();        	 
-             return false;
+			alert('Please select the contract Currency');
+            $("#form_contractCurrency").focus();
+            return false;
+		}
+		else if(contractCurrency && !$("#form_sowValueUSD").val() && $('#form_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+			alert('Please select the Currency USD');
+			$("#form_sowValueUSD").focus();
+            return false;       
+		}	
+		else if(contractCurrency && !$("#form_sowValueSgd").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+			alert('Please select the Currency SGD');
+			$("#form_sowValueSgd").focus();
+            return false;       
+		}
+		else if(contractCurrency && !$("#form_sowValueMyr").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+			alert('Please select the Currency MYR');
+			$("#form_sowValueMyr").focus();
+            return false;       
+		}else if(contractCurrency && !$("#form_sowValueInr").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]')){		
+			alert('Please select the Currency INR');
+			$("#form_sowValueInr").focus();
+            return false;       
+		}
+		
+		else if($("#form_sowStartDate").val() == "" ){
+         	alert('Please select the Start Date.');   
+         	$('#form_sowStartDate').focus();
+         	return false; 
          }
+		else if($("#form_sowEndDate").val() == "" ){
+         	alert('Please select the End Date.');   
+         	$('#form_sowEndDate').focus();
+         	return false; 
+         }
+		
 		// date
 		else if(!$("#form_sowStartDate").val() == "" && $("#form_sowEndDate").val() < $("#form_sowStartDate").val()){
          	alert('End Date must be greater than or equal to  Start Date.');   
@@ -126,16 +160,13 @@ app.controller('myCtrl', function($scope, $http, $window) {
 					 alert('Please fill the Resource Count');
 		             $("#form_resCount").focus();
 		             return false;
-				
-	        	 
-	         }
-    			 
+	         }    			 
 		}else{
 			$('#resCount').html("Resource Count");
 			$("#form_resCount").val("");
 		}        	
-     });	
-		
+     });
+	
 	//Update a record start
 	$scope.GetUserDetails = function(id){
 		$http.get("http://10.30.54.160:8082/sow/fetchSOW?data="+id)	
@@ -180,26 +211,38 @@ app.controller('myCtrl', function($scope, $http, $window) {
 					$scope.valDisabledSGD = true;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledINR = true;
-				}else if(val == "USD"){
+				}else if(val == "USD"){					 
 					$scope.valDisabledUSD = false;
 					$scope.valDisabledSGD = true;
 					$scope.valDisabledMYR = true;
-					$scope.valDisabledINR = true;
-				}else if(val == "SGD"){
+					$scope.valDisabledINR = true;					
+					//$("#curSowValueUSD").html("SOW Value USD<span style='color:red;font-size:10px' id='curSowValueUSD'> *</span>");
+				}else if(val == "SGD"){					
 					$scope.valDisabledUSD = true;
 					$scope.valDisabledSGD = false;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledINR = true;
+					if(curSowValueSGD){
+						//$("#curSowValueSGD").html("SOW Value SGD<span style='color:red;font-size:10px' id='curSowValueSGD'> *</span>");
+					}
 				}else if(val == "MYR"){
+					//$("#curSowValueMyr").html("SOW Value MYR<span style='color:red;font-size:10px' id='curSowValueMyr'> *</span>");
 					$scope.valDisabledUSD = true;
 					$scope.valDisabledMYR = false;
 					$scope.valDisabledSGD = true;
-					$scope.valDisabledINR = true;			
+					$scope.valDisabledINR = true;	
+					if(curSowValueMYR){
+						//$("#curSowValueMYR").html("SOW Value MYR<span style='color:red;font-size:10px' id='curSowValueMYR'> *</span>");
+					}
 				}else if(val == "INR"){
+					//$("#curSowValueInr").html("SOW Value INR<span style='color:red;font-size:10px' id='curSowValueInr'> *</span>");
 					$scope.valDisabledUSD = true;
 					$scope.valDisabledINR = false;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledSGD = true;
+					if(curSowValueINR){
+						//$("#curSowValueINR").html("SOW Value INR<span style='color:red;font-size:10px' id='curSowValueINR'> *</span>");
+					}
 				};		
 		 }else if($('#update_user_modal:visible').length){
 			 	$scope.formModalData.sowValueUSD = '';

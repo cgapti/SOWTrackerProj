@@ -171,7 +171,7 @@
 														id="form_owner" name="owner" ng-model="formData.owner"
 														class="form-control">
 														<option value="">Select Owner</option>
-														<option value="TechMG">TechM</option>
+														<option value="TechM">TechM</option>
 														<option value="SofGen">SofGen</option>
 													</select>
 												</div>
@@ -179,10 +179,8 @@
 
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_engmntModel">Engagement Model<span
-														style="color: red; font-size: 12px;"> *</span></label> <select
-														id="form_engmntModel" name="engmntModel"
-														ng-model="formData.engmntModel" class="form-control">
+													<label for="form_engmntModel">Engagement Model<span style="color: red; font-size: 12px;"> *</span></label> 
+													<select id="form_engmntModel" name="engmntModel" ng-model="formData.engmntModel" class="form-control">
 														<option value="">Select</option>
 														<option value="T and M">T and M</option>
 														<option value="Fixed Bid">Fixed Bid</option>
@@ -199,21 +197,14 @@
 
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_projectDtls">Project Details <span
-														style="color: red; font-size: 12px;"> *</span></label> <input
-														id="form_projectDtls" type="text" name="projectDtls"
-														ng-model="formData.projectDtls" class="form-control"
-														placeholder="Project Details">
+													<label for="form_projectDtls">Project Details <span style="color: red; font-size: 12px;"> *</span></label> 
+														<input id="form_projectDtls" type="text" name="projectDtls" ng-model="formData.projectDtls" class="form-control" placeholder="Project Details">
 												</div>
 											</div>
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_contractCurrency">Contract
-														Currency<span style="color: red; font-size: 12px;">
-															*</span>
-													</label> <select id="form_contractCurrency" name="contractCurrency"
-														ng-model="formData.contractCurrency" class="form-control"
-														ng-change="updateCurVal(formData.contractCurrency)">
+													<label for="form_contractCurrency">Contract Currency<span style="color: red; font-size: 12px;"> *</span> </label> 
+													<select id="form_contractCurrency" name="contractCurrency" ng-model="formData.contractCurrency" class="form-control" ng-change="updateCurVal(formData.contractCurrency)">
 														<option value="">Select Currency</option>
 														<option value="USD">USD</option>
 														<option value="SGD">SGD</option>
@@ -224,15 +215,14 @@
 											</div>
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_sowValueUSD">SOW Value USD</label> <input
+													<label for="form_sowValueUSD" id="curSowValueUSD">SOW Value USD</label> <input
 														id="form_sowValueUSD" type="number" name="sowValue"
 														ng-disabled="valDisabledUSD"
 														ng-model="formData.sowValueUSD" class="form-control"
 														placeholder="SOW Value USD"
-														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueUSD)" min="1">
+														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueUSD)" min="1" onkeypress="return isNumberKey(event)">
 												</div>
 											</div>
-
 											<div class="col-md-3">
 												<div class="form-group">
 													<label for="form_valueMillion">Value Million</label> <input
@@ -241,47 +231,40 @@
 														class="form-control" placeholder="Value Million">
 												</div>
 											</div>
-
-
-
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_sowValueSgd">SOW Value SGD</label> <input
+													<label for="form_sowValueSgd" id="curSowValueSgd">SOW Value SGD</label> <input
 														id="form_sowValueSgd" type="number"
 														ng-disabled="valDisabledSGD"
 														ng-blur="changeCurrency(formData.contractCurrency,formData.sowValueSgd);"
 														name="sowValueSgd" ng-model="formData.sowValueSgd"
-														class="form-control" placeholder="SOW Value SGD">
+														class="form-control" placeholder="SOW Value SGD" onkeypress="return isNumberKey(event)">
 												</div>
 											</div>
-
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_sowValueMyr">SOW Value MYR</label> <input
+													<label for="form_sowValueMyr" id="curSowValueMyr">SOW Value MYR</label> <input
 														id="form_sowValueMyr" type="number"
 														ng-disabled="valDisabledMYR"
 														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueMyr);"
 														name="sowValueMyr" ng-model="formData.sowValueMyr"
-														class="form-control" placeholder="SOW Value MYR">
+														class="form-control" placeholder="SOW Value MYR" onkeypress="return isNumberKey(event)">
 												</div>
 											</div>
-
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_sowValueInr">SOW Value INR</label> <input
+													<label for="form_sowValueInr" id="curSowValueInr">SOW Value INR</label> <input
 														id="form_sowValueInr" type="number"
 														ng-disabled="valDisabledINR"
 														ng-blur="changeCurrency(formData.contractCurrency, formData.sowValueInr);"
 														name="sowValueInr" ng-model="formData.sowValueInr"
-														class="form-control" placeholder="SOW Value INR">
+														class="form-control" placeholder="SOW Value INR" onkeypress="return isNumberKey(event)">
 												</div>
 											</div>
-
-
-
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_sowStartDate">SOW Start Date</label> <input
+													<label for="form_sowStartDate">SOW Start Date <span
+														style="color: red; font-size: 12px;"> *</span></label> <input
 														id="form_sowStartDate" type="date" name="sowStartDate"
 														ng-model="formData.sowStartDate" class="form-control"
 														placeholder="SOW Start Date" max="9999-12-31">
@@ -290,7 +273,8 @@
 
 											<div class="col-md-3">
 												<div class="form-group">
-													<label for="form_sowEndDate">SOW End Date</label> <input
+													<label for="form_sowEndDate">SOW End Date <span
+														style="color: red; font-size: 12px;"> *</span></label> <input
 														id="form_sowEndDate" type="date" name="sowEndDate"
 														ng-model="formData.sowEndDate" class="form-control"
 														placeholder="SOW End Date" max="9999-12-31">
@@ -305,7 +289,7 @@
 														ng-model="formData.sowStatus" class="form-control">
 														<option value="">Select</option>
 														<option value="Active">Active</option>
-														<option value="Planned">Planned</option>
+														<option value="Planned" selected="selected">Planned</option>
 													</select>
 												</div>
 											</div>
@@ -462,7 +446,7 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label for="form_pId">PID</label> <input id="formModel_pId"
-											type="number" name="pId" ng-readonly="true"
+											type="number" name="pId" 
 											ng-model="formModalData.pId" class="form-control" min="0" onkeypress="return isNumberKey(event)">
 									</div>
 								</div>
@@ -470,7 +454,7 @@
 									<div class="form-group">
 										<label for="formModel_contactNo">Contract No</label> <input
 											id="formModel_contractNo" type="text" name="contractNo"
-											ng-readonly="true" ng-model="formModalData.contractNo"
+											ng-model="formModalData.contractNo"
 											class="form-control" min="0">
 									</div>
 								</div>
@@ -479,7 +463,7 @@
 									<div class="form-group">
 										<label for="formModel_phone">Po No</label> <input
 											id="formModel_poNo" type="number" name="poNo"
-											ng-readonly="true" ng-model="formModalData.poNo"
+											ng-model="formModalData.poNo"
 											class="form-control" min="0" onkeypress="return isNumberKey(event)">
 									</div>
 								</div>
@@ -599,7 +583,7 @@
 									<div class="form-group">
 										<label for="formModel_sowStartDate">SOW Start Date</label> <input
 											id="formModel_sowStartDate" type="text" name="sowStartDate"
-											ng-readonly="true" ng-model="formModalData.sowStartDate"
+											ng-model="formModalData.sowStartDate"
 											class="form-control" max="9999-12-31">
 									</div>
 								</div>
@@ -608,7 +592,7 @@
 									<div class="form-group">
 										<label for="formModel_sowEndDate">SOW End Date</label> <input
 											id="formModel_sowEndDate" type="text" name="sowEndDate"
-											ng-readonly="true" ng-model="formModalData.sowEndDate"
+											ng-model="formModalData.sowEndDate"
 											class="form-control" max="9999-12-31">
 									</div>
 								</div>
@@ -621,9 +605,7 @@
 											ng-model="formModalData.sowStatus" class="form-control">
 											<option value="">Select</option>
 											<option value="Active">Active</option>
-											<option value="Planned">Planned</option>
-											<option value="Closed">Closed</option>
-											<option value="SOW Cancelled">SOW Cancelled</option>
+											<option value="Planned" selected>Planned</option>
 										</select>
 									</div>
 								</div>
@@ -649,8 +631,7 @@
 									<div class="form-group">
 										<label for="formModel_businessArea">Business Area</label><select
 											id="formModel_businessArea" name="businessArea"
-											ng-model="formModalData.businessArea" class="form-control"
-											ng-readonly="true">
+											ng-model="formModalData.businessArea" class="form-control">
 											<option value="">Select</option>
 											<option value="Core Banking">Core Banking</option>
 											<option value="Corporate & Institutional Banking">Corporate
@@ -665,8 +646,7 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label for="formModel_deliverySpoc">Delivery Spoc</label><select
-											id="formModel_deliverySpoc" name="deliverySpoc"
-											ng-readonly="true" ng-model="formModalData.deliverySpoc"
+											id="formModel_deliverySpoc" name="deliverySpoc" ng-model="formModalData.deliverySpoc"
 											class="form-control">
 											<option value="">Select</option>
 											<option value="Christian.Mueller">Christian.Mueller</option>
@@ -686,8 +666,7 @@
 									<div class="form-group">
 										<label for="formModel_customerToSpoc">Customer To Spoc</label>
 										<input id="formModel_customerToSpoc" type="text"
-											name="customerToSpoc" ng-readonly="true"
-											ng-model="formModalData.customerToSpoc" class="form-control">
+											name="customerToSpoc" ng-model="formModalData.customerToSpoc" class="form-control">
 									</div>
 								</div>
 
@@ -695,8 +674,7 @@
 									<div class="form-group">
 										<label for="formModel_customerCcSpoc">Customer CC Spoc</label>
 										<input id="formModel_customerCcSpoc" type="text"
-											name="customerCcSpoc" ng-readonly="true"
-											ng-model="formModalData.customerCcSpoc" class="form-control">
+											name="customerCcSpoc" ng-model="formModalData.customerCcSpoc" class="form-control">
 									</div>
 								</div>
 
@@ -704,7 +682,7 @@
 									<div class="form-group">
 										<label for="formModel_deliveryModel">Delivery Model</label><select
 											id="formModel_deliveryModel" name="deliveryModel"
-											ng-readonly="true" ng-model="formModalData.deliveryModel"
+											ng-model="formModalData.deliveryModel"
 											class="form-control">
 											<option value="">Select</option>
 											<option value="Fixed Price">Fixed Price</option>
@@ -715,21 +693,12 @@
 												Augmentation</option>
 										</select>
 									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group">
-										<label for="formModel_createdBy">Created By</label> <input
-											id="formModel_createdBy" type="text" name="createdBy"
-											ng-readonly="true" ng-model="formModalData.createdBy"
-											class="form-control">
-									</div>
-								</div>
+								</div>							
 
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="formModel_sowRemarks">SOW Remarks</label>
-										<textarea id="formModel_sowRemarks" name="sowRemarks"
-											ng-readonly="true" ng-model="formModalData.sowRemarks"
+										<textarea id="formModel_sowRemarks" name="sowRemarks" ng-model="formModalData.sowRemarks"
 											class="form-control"></textarea>									
 									</div>
 								</div>

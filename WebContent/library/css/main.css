@@ -15,15 +15,15 @@
 /* Header */
 #header {
 	width: 1040px;
-	height: 150px;
+	height: 50px;
 	margin: 0 auto;
 }
 
 /* Logo */
 #logo {
 	width: 1100px;
-	height: 150px;
-	margin: 0px auto 30px auto;
+	height: 0px;
+	margin: 0px auto 0px auto;
 	color: #000000;
 }
 
@@ -34,11 +34,9 @@
 }
 
 #logo h1 {
-	line-height: 100px;
 	letter-spacing: -1px;
 	text-align: center;
 	text-transform: capitalize;
-	font-size: 3.8em;
 }
 
 #logo p {
@@ -54,7 +52,7 @@
 	border: none;
 	background: none;
 	text-decoration: none;
-	color: #054175;
+	color: #c31c1c;
 }
 
 /* Menu */
@@ -62,7 +60,7 @@
 	overflow: hidden;
 	width: 970px;
 	padding: 0px 0px;
-	margin: 0px auto 30px auto;
+	margin: 0px auto 20px auto;
 	background: #064C8A;
 	border-radius: 20px 0px 20px 0px;
 	font-size: 25px;

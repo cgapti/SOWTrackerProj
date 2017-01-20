@@ -18,7 +18,6 @@ function divDisable() {
 var totalMonth;
 var monthNames = [ "January", "February", "March", "April", "May", "June",
                    "July", "August", "September", "October", "November", "December" ];
-
 var sowStartDate;
 var sowEnddate;
 var usdCurrencyvalue;

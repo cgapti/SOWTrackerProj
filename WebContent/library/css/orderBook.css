@@ -1,7 +1,7 @@
 table {	
 	table-layout: relative;
 	border-collapse: collapse;
-	margin-bottom: 3em;
+	/*margin-bottom: 3em;*/
 }
 
 th {
@@ -20,7 +20,7 @@ table tr:nth-child(even) {
 }
 
 table tr:nth-child(odd) {
-	background-color: #ffff00;
+	background-color: #d9edf7;
 }
 
 td {

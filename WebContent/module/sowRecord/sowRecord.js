@@ -169,6 +169,11 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	
 	//Update a record start
 	$scope.GetUserDetails = function(id){
+		
+		if($("#formModel_engmntModel option:selected").val() == "T and M"){
+			$('#resCountM').html("Resource Count<span style='color:red;font-size:10px' id='requiredFirstM'> *</span>");
+		}
+		
 		$http.get("http://10.30.54.160:8082/sow/fetchSOW?data="+id)	
 		.then(function(response){				
 			$scope.formModalData = response.data[0];
@@ -180,17 +185,144 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	//Update a record end
 	
 	//Save a record start
-	$scope.saveUserDetails = function(formModalData){		
+	$scope.saveUserDetails = function(formModalData){
+		
+		
+		var ownerM 				= $("#formModel_owner option:selected").val();
+		var engmntModelM 		= $("#formModel_engmntModel option:selected").val();
+		var contractCurrencyM	= $("#formModel_contractCurrency option:selected").val();
+		var sowStatusM 			= $("#formModel_sowStatus option:selected").val();
+		var locationM 			= $("#formModel_location option:selected").val();
+		var businessAreaM 		= $("#formModel_businessArea option:selected").val();
+		
+		var curSowValueUSDM = $("#formModel_sowValueUSD").val();		
+		var curSowValueSGDM = $("#formModel_sowValueSgd").val();
+		var curSowValueMYRM = $("#formModel_sowValueMyr").val();
+		var curSowValueINRM = $("#formModel_sowValueInr").val();
+		
+		var str = $("#formModel_sowStartDate").val();
+        var end = $("#formModel_sowEndDate").val();
+        var year = str.substring(0,4);
+        var month = str.substring(5,7);
+        var date = str.substring(8,10);
+        var endYear = end.substring(0,4);
+        var endMonth = end.substring(5,7);
+        var endDate = end.substring(8,10);
+        var startDate = new Date(year, month-1, date);
+        var endDate = new Date(endYear, endMonth-1, endDate);
+		
+		if(!$("#formModel_sowNo").val()) {             
+             alert('Please fill the SOW Reference No');
+             $("#formModel_sowNo").focus();
+             return false;
+         }				
+		else if(ownerM == ""){
+			alert('Please Select Owner');    
+			$('#formModel_owner').focus();
+			return false;        	               
+         }
+
+		else if(engmntModelM == ""){
+        	 alert('Please Select Engament Model');    
+        	 $('#formModel_engmntModel').focus();        	 
+             return false;
+        }		
+		else if($("#requiredFirstM").length > 0 && $("#formModel_resCount").val() == ""){			
+				 alert('Please fill the Resource Count');
+	             $("#formModel_resCount").focus();
+	             return false;
+         }
+		
+		else if(!$("#formModel_projectDtls").val()) {
+             alert('Please fill the Project Details');
+             $("#formModel_projectDtls").focus();
+             return false;
+         }       
+		else if(contractCurrencyM == ""){
+			alert('Please select the contract Currency');
+            $("#formModel_contractCurrency").focus();
+            return false;
+		}
+		/*else if(contractCurrency && !$("#form_sowValueUSD").val() && $('#form_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+			alert('Please select the Currency USD');
+			$("#formModel_sowValueUSD").focus();
+            return false;       
+		}	
+		else if(contractCurrency && !$("#form_sowValueSgd").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+			alert('Please select the Currency SGD');
+			$("#formModel_sowValueSgd").focus();
+            return false;       
+		}
+		else if(contractCurrency && !$("#form_sowValueMyr").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+			alert('Please select the Currency MYR');
+			$("#formModel_sowValueMyr").focus();
+            return false;       
+		}else if(contractCurrency && !$("#form_sowValueInr").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]')){		
+			alert('Please select the Currency INR');
+			$("#formModel_sowValueInr").focus();
+            return false;       
+		}*/
+		
+		else if($("#formModel_sowStartDate").val() == "" ){
+         	alert('Please select the Start Date.');   
+         	$('#formModel_sowStartDate').focus();
+         	return false; 
+         }
+		else if($("#formModel_sowEndDate").val() == "" ){
+         	alert('Please select the End Date.');   
+         	$('#formModel_sowEndDate').focus();
+         	return false; 
+         }
+		
+		// date
+		else if(!$("#formModel_sowStartDate").val() == "" && $("#formModel_sowEndDate").val() < $("#formModel_sowStartDate").val()){
+         	alert('End Date must be greater than or equal to  Start Date.');   
+         	$('#formModel_sowEndDate').focus();
+         	return false; 
+         }     
+         //date end         
+		else if(sowStatusM == ""){
+        	 alert('Please Select Sow Status');    
+        	 $('#formModel_sowStatus').focus();        	 
+             return false;
+         }         
+		else if(locationM == ""){
+        	 alert('Please Select Location');    
+        	 $('#formModel_location').focus();        	 
+             return false;
+         }
+		else if(businessAreaM == ""){
+        	 alert('Please Select Business Area');    
+        	 $('#formModel_businessArea').focus();        	 
+             return false;
+         }  
+		
 		$http.post("http://10.30.54.160:8082/sow/addSOW/", angular.toJson(formModalData))	    
 		.then(function(response) {
 			$scope.sowDetails = response.data;
-			//$scope.readRecords();
-			
+			//$scope.readRecords();			
  		});	
 		$window.location.reload();
 	   $("#update_user_modal").modal("hide");	   
 	};
 	//Save a record start
+	
+	
+	$('#formModel_engmntModel').on('change', function() {		
+		if($(this).val() == 'T and M'){
+			 $('#resCountM').html("Resource Count<span style='color:red;font-size:10px' id='requiredFirstM'> *</span>");			 
+			 if($("#requiredFirstM").length){				
+					 alert('Please fill the Resource Count');
+		             $("#formModel_resCount").focus();
+		             return false;
+	         }    			 
+		}else{
+			$('#resCountM').html("Resource Count");
+			$("#formModel_resCount").val("");
+		}        	
+     });
+	
+	
 	
 	//convert currency value start
 	
@@ -321,8 +453,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		}
 				
 	};
-	//convert currency value end
-	
+	//convert currency value end	
 	function isNumberKey(evt) {
 		var charCode = (evt.which) ? evt.which : event.keyCode;
 		if (((charCode < 48 && charCode != 8) || charCode > 57))

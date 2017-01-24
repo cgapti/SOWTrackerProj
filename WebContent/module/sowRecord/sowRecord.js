@@ -253,25 +253,25 @@ app.controller('myCtrl', function($scope, $http, $window) {
             $("#formModel_contractCurrency").focus();
             return false;
 		}
-		/*else if(contractCurrency && !$("#form_sowValueUSD").val() && $('#form_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+		else if(contractCurrencyM && !$("#formModel_sowValueUSD").val() && $('#formModel_sowValueSgd').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
 			alert('Please select the Currency USD');
 			$("#formModel_sowValueUSD").focus();
             return false;       
 		}	
-		else if(contractCurrency && !$("#form_sowValueSgd").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+		else if(contractCurrencyM && !$("#formModel_sowValueSgd").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
 			alert('Please select the Currency SGD');
 			$("#formModel_sowValueSgd").focus();
             return false;       
 		}
-		else if(contractCurrency && !$("#form_sowValueMyr").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+		else if(contractCurrencyM && !$("#formModel_sowValueMyr").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
 			alert('Please select the Currency MYR');
 			$("#formModel_sowValueMyr").focus();
             return false;       
-		}else if(contractCurrency && !$("#form_sowValueInr").val() && $('#form_sowValueUSD').is('[disabled=disabled]') && $('#form_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]')){		
+		}else if(contractCurrencyM && !$("#formModel_sowValueInr").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]')){		
 			alert('Please select the Currency INR');
 			$("#formModel_sowValueInr").focus();
             return false;       
-		}*/
+		}
 		
 		else if($("#formModel_sowStartDate").val() == "" ){
          	alert('Please select the Start Date.');   
@@ -401,26 +401,42 @@ app.controller('myCtrl', function($scope, $http, $window) {
 					$scope.valDisabledSGD = true;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledINR = true;
-				}else if(val == "USD"){
+				}else if(val == "USD"){					
 					$scope.valDisabledUSD = false;
 					$scope.valDisabledSGD = true;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledINR = true;
+					$("#curSowValueMUSD").html("SOW Value USD<span style='color:red;font-size:10px' id='curSowValueUSD'> *</span>");
+					$("#curSowValueMSgd").html("SOW Value SGD");
+					$("#curSowValueMMyr").html("SOW Value MYR");
+					$("#curSowValueMInr").html("SOW Value INR");
 				}else if(val == "SGD"){
 					$scope.valDisabledUSD = true;
 					$scope.valDisabledSGD = false;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledINR = true;
+					$("#curSowValueMSgd").html("SOW Value SGD<span style='color:red;font-size:10px' id='curSowValueSg'> *</span>");
+					$("#curSowValueMUSD").html("SOW Value USD");
+					$("#curSowValueMMyr").html("SOW Value MYR");
+					$("#curSowValueMInr").html("SOW Value INR");
 				}else if(val == "MYR"){
 					$scope.valDisabledUSD = true;
 					$scope.valDisabledMYR = false;
 					$scope.valDisabledSGD = true;
-					$scope.valDisabledINR = true;			
+					$scope.valDisabledINR = true;	
+					$("#curSowValueMMyr").html("SOW Value MYR<span style='color:red;font-size:10px' id='curSowValueMy'> *</span>");
+					$("#curSowValueMUSD").html("SOW Value USD");
+					$("#curSowValueMSgd").html("SOW Value SGD");					
+					$("#curSowValueMInr").html("SOW Value INR");
 				}else if(val == "INR"){
 					$scope.valDisabledUSD = true;
 					$scope.valDisabledINR = false;
 					$scope.valDisabledMYR = true;
 					$scope.valDisabledSGD = true;
+					$("#curSowValueMInr").html("SOW Value INR<span style='color:red;font-size:10px' id='curSowValueIn'> *</span>");
+					$("#curSowValueMUSD").html("SOW Value USD");
+					$("#curSowValueMSgd").html("SOW Value SGD");	
+					$("#curSowValueMMyr").html("SOW Value MYR");
 				};		
 		 }
 	};			

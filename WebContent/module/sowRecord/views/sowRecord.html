@@ -522,7 +522,7 @@
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
-										<label for="formModel_sowValueUSD">SOW Value USD</label> <input
+										<label for="formModel_sowValueUSD" id="curSowValueMUSD">SOW Value USD</label> <input
 											id="formModel_sowValueUSD" type="number" name="sowValueUSD"
 											ng-disabled="valDisabledUSD"
 											ng-model="formModalData.sowValueUSD" class="form-control"
@@ -541,7 +541,7 @@
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
-										<label for="formModel_sowValueSgd">SOW Value SGD</label> <input
+										<label for="formModel_sowValueSgd" id="curSowValueMSgd">SOW Value SGD</label> <input
 											id="formModel_sowValueSgd" type="number" name="sowValueSgd"
 											ng-disabled="valDisabledSGD"
 											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueSgd)"
@@ -552,7 +552,7 @@
 
 								<div class="col-md-3">
 									<div class="form-group">
-										<label for="formModel_sowValueMyr">SOW Value MYR</label> <input
+										<label for="formModel_sowValueMyr" id="curSowValueMMyr">SOW Value MYR</label> <input
 											id="formModel_sowValueMyr" type="number" name="sowValueMyr"
 											ng-disabled="valDisabledMYR"
 											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueMyr)"
@@ -563,7 +563,7 @@
 
 								<div class="col-md-3">
 									<div class="form-group">
-										<label for="formModel_sowValueInr">SOW Value INR</label> <input
+										<label for="formModel_sowValueInr" id="curSowValueMInr">SOW Value INR</label> <input
 											id="formModel_sowValueInr" type="number" name="sowValueInr"
 											ng-disabled="valDisabledINR"
 											ng-blur="changeCurrency(formModalData.contractCurrency, formModalData.sowValueInr)"

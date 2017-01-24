@@ -26,6 +26,7 @@ table tr:nth-child(odd) {
 td {
 	width: 10em;
 	padding: 1em;
+	border: 1px solid #c1c1c1;
 }
 
 .year, .category, .month, .currency {

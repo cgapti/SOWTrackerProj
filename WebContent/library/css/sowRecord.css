@@ -17,3 +17,4 @@ table {
   height:400px;
   overflow-y:auto;
 }
+.noDataWidth {    width: 200em;    font-size: 20px; background: #fff;}

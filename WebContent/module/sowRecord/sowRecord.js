@@ -25,7 +25,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
     }
 	//SOW Number Populate page load end	
 	$scope.cancelRecord = function(formData){		
-		//$window.location.reload();
+		$window.location.reload();
 	}	
 	
 	//insert new records
@@ -150,7 +150,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 			$scope.readRecords();
 			alert("Record Added Successfully")
  		});
-         //$window.location.reload();
+         $window.location.reload();
          $("#add_new_record_modal").modal("hide");			
         }
 	}
@@ -159,7 +159,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		if($(this).val() == 'T and M'){
 			 $('#resCount').html("Resource Count<span style='color:red;font-size:10px' id='requiredFirst'> *</span>");			 
 			 if($("#requiredFirst").length){				
-					 alert('Please fill the Resource Count');
+					 //alert('Please fill the Resource Count');
 		             $("#form_resCount").focus();
 		             return false;
 	         }    			 
@@ -322,7 +322,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		if($(this).val() == 'T and M'){
 			 $('#resCountM').html("Resource Count<span style='color:red;font-size:10px' id='requiredFirstM'> *</span>");			 
 			 if($("#requiredFirstM").length){				
-					 alert('Please fill the Resource Count');
+					 //alert('Please fill the Resource Count');
 		             $("#formModel_resCount").focus();
 		             return false;
 	         }    			 
@@ -491,5 +491,4 @@ app.controller('myCtrl', function($scope, $http, $window) {
 
 		return true;
 	}
-	
 });

@@ -37,19 +37,19 @@
 									<th>Project Details</th>
 									<th>Contract Currency (USD, SGD,MYR,INR)</th>									
 									<th>SOW Value ( USD)</th>
-									<th>Value (mn)</th>
+									<th>Value (million)</th>
 									<th>SOW Value (SGD)</th>
 									<th>SOW Value (MYR)</th>
 									<th>SOW Value (INR)</th>									
-									<th>Start Date</th>
-									<th>End Date</th>
+									<th>Start Date (dd/mm/yyyy)</th>
+									<th>End Date (dd/mm/yyyy)</th>
 									<th>Status of the SOW /PO /Contract</th>
 									<th>Location</th>
 									<th>Business Area</th>
 									<th>Delivery SPOC</th>									
 									<th>Customer TO SPOC</th>
 									<th>Customer CC SPOC</th>
-									<th>Delivery Model(Staff Aug)</th>
+									<th>Delivery Model</th>
 									<th>Remarks</th>
 									<th>Update</th>
 								</tr>
@@ -88,9 +88,13 @@
 								</tr>
 								<tr>
 									<td ng-show="sowDetails.length == 0" colspan="25"
-										id="noTableValue" style="font-size: 30px; text-align: center;">No
-										datas available.</td>
+										id="noTableValue" style="font-size: 30px; text-align: center;">No Records available.</td>
 								</tr>
+								<tr>
+									<td class="noDataWidth">
+										<p ng-show="(sowDetails | filter:curPlace).length == 0">No Search Records available.</p>
+									</td>
+								</tr>								
 							</tbody>
 						</table>
 						
@@ -99,8 +103,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 		<!-- Bootstrap Modals Modal - Add New Record/User -->
 		<div class="modal fade" id="add_new_record_modal" tabindex="-1"
@@ -389,9 +391,7 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label for="form_sowRemarks">SOW Remarks</label>
-													<textarea id="form_sowRemarks" name="sowRemarks"
-														ng-model="formData.sowRemarks" class="form-control"
-														placeholder="SOW Remarks"></textarea>
+													<textarea id="form_sowRemarks" name="sowRemarks" ng-model="formData.sowRemarks" class="form-control" style="overflow:auto;resize:none" rows="2" cols="20"></textarea>
 												</div>
 											</div>
 
@@ -471,7 +471,7 @@
 										<label for="formModel_owner">Owner <span style="color: red; font-size: 12px;">*</span></label>
 											<select id="formModel_owner" name="owner" ng-model="formModalData.owner" class="form-control">
 											<option value="">Select Owner</option>
-											<option value="TechMG">TechM</option>
+											<option value="TechM">TechM</option>
 											<option value="SofGen">SofGen</option>
 										</select>
 									</div>
@@ -479,7 +479,7 @@
 
 								<div class="col-md-3">
 									<div class="form-group">
-										<label for="formModel_engmntModel">Engament Model<span style="color: red; font-size: 12px;"> *</span></label> 
+										<label for="formModel_engmntModel">Engagement Model<span style="color: red; font-size: 12px;"> *</span></label> 
 										<select id="formModel_engmntModel" name="engmntModel"
 											ng-model="formModalData.engmntModel" class="form-control">
 											<option value="">Select</option>
@@ -689,8 +689,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="formModel_sowRemarks">SOW Remarks</label>
-										<textarea id="formModel_sowRemarks" name="sowRemarks" ng-model="formModalData.sowRemarks"
-											class="form-control"></textarea>									
+										<textarea id="formModel_sowRemarks" name="sowRemarks" ng-model="formModalData.sowRemarks" class="form-control" style="overflow:auto;resize:none"></textarea>									
 									</div>
 								</div>
 							</div>

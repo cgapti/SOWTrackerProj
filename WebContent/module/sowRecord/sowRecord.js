@@ -147,8 +147,8 @@ app.controller('myCtrl', function($scope, $http, $window) {
          $http.post("http://10.30.54.160:8082/sow/addSOW", angular.toJson(formData))		
 		.then(function(response) {
 			$scope.sowDetails = response.data;
-			$scope.readRecords();
 			alert("Record Added Successfully")
+			$scope.readRecords();			
  		});
          $window.location.reload();
          $("#add_new_record_modal").modal("hide");			
@@ -324,6 +324,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 			 if($("#requiredFirstM").length){				
 					 //alert('Please fill the Resource Count');
 		             $("#formModel_resCount").focus();
+		             $("#formModel_resCount").val("");
 		             return false;
 	         }    			 
 		}else{

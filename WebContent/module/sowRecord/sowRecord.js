@@ -253,21 +253,21 @@ app.controller('myCtrl', function($scope, $http, $window) {
             $("#formModel_contractCurrency").focus();
             return false;
 		}
-		else if(contractCurrencyM && !$("#formModel_sowValueUSD").val() && $('#formModel_sowValueSgd').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+		else if(contractCurrencyM && !$("#formModel_sowValueUSD").val() && $('#formModel_sowValueSgd').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]') && $('#formModel_sowValueUSD').is('[disabled=disabled]')){		
 			alert('Please select the Currency USD');
 			$("#formModel_sowValueUSD").focus();
             return false;       
 		}	
-		else if(contractCurrencyM && !$("#formModel_sowValueSgd").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+		else if(contractCurrencyM && !$("#formModel_sowValueSgd").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]') && !$('#formModel_sowValueSgd').is('[disabled=disabled]')){		
 			alert('Please select the Currency SGD');
 			$("#formModel_sowValueSgd").focus();
             return false;       
 		}
-		else if(contractCurrencyM && !$("#formModel_sowValueMyr").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]')){		
+		else if(contractCurrencyM && !$("#formModel_sowValueMyr").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueSgd').is('[disabled=disabled]') && $('#form_sowValueInr').is('[disabled=disabled]') && !$('#formModel_sowValueMyr').is('[disabled=disabled]')){		
 			alert('Please select the Currency MYR');
 			$("#formModel_sowValueMyr").focus();
             return false;       
-		}else if(contractCurrencyM && !$("#formModel_sowValueInr").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]')){		
+		}else if(contractCurrencyM && !$("#formModel_sowValueInr").val() && $('#formModel_sowValueUSD').is('[disabled=disabled]') && $('#formModel_sowValueMyr').is('[disabled=disabled]') && $('#form_sowValueSgd').is('[disabled=disabled]') && !$('#form_sowValueInr').is('[disabled=disabled]')){		
 			alert('Please select the Currency INR');
 			$("#formModel_sowValueInr").focus();
             return false;       

@@ -4,7 +4,7 @@ body {	font-size: 12px;}
 .form-control {	font-size: 12px;}
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{background-color: #a99797 !important; opacity: 1; color: #100e0e;}
 .table-striped>tbody>tr:nth-child(2n+1)>td, .table-striped>tbody>tr:nth-child(2n+1)>th	{	background-color: #d9edf7;}
-#sowRecd .table-responsive {	margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: 215%;}
+#sowRecd .table-responsive {	margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: 190%;}
 .modal-header, .modal-footer{background: #4682b4}
 .btn-primary {color: #fff;    background-color: #102e48; border-color: #1e255a;} 
 

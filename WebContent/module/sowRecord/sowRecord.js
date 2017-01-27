@@ -144,16 +144,31 @@ app.controller('myCtrl', function($scope, $http, $window) {
              return false;
          }   
          else{        	 
-         $http.post("http://10.30.54.160:8082/sow/addSOW", angular.toJson(formData))		
+        	 
+        	 $.ajax({
+     			url : 'http://10.30.54.160:8082/sow/addSOW',
+     			contentType : "application/json",
+     			type : 'POST',
+     			dataType : 'text',
+     			data : angular.toJson(formData)
+     		}).done(function(response) {
+     			alert("Record added successfully");
+     			$window.location.reload();
+     		});
+     	   $("#update_user_modal").modal("hide");	   
+     	};
+        	 
+        	 
+         /*$http.post("http://10.30.54.160:8082/sow/addSOW", angular.toJson(formData))		
 		.then(function(response) {
 			$scope.sowDetails = response.data;
 			alert("Record Added Successfully")
 			$scope.readRecords();			
  		});
          $window.location.reload();
-         $("#add_new_record_modal").modal("hide");			
+         $("#add_new_record_modal").modal("hide");	*/		
         }
-	}
+	
 		
 	$('#form_engmntModel').on('change', function() {		
 		if($(this).val() == 'T and M'){
@@ -307,12 +322,27 @@ app.controller('myCtrl', function($scope, $http, $window) {
              return false;
          }  
 		
-		$http.post("http://10.30.54.160:8082/sow/addSOW/", angular.toJson(formModalData))	    
+	
+	/*	$http.post("http://10.30.54.160:8082/sow/addSOW/",  angular.toJson(formModalData))	    
 		.then(function(response) {
 			$scope.sowDetails = response.data;
+			alert(1);
 			//$scope.readRecords();			
- 		});	
-		$window.location.reload();
+ 		},function(err){
+ 			alert("error " +err);
+ 		});	*/
+		
+		
+		$.ajax({
+			url : 'http://10.30.54.160:8082/sow/addSOW/',
+			contentType : "application/json",
+			type : 'POST',
+			dataType : 'text',
+			data : angular.toJson(formModalData)
+		}).done(function(response) {
+			alert("Record Updated successfully");
+			$window.location.reload();
+		});
 	   $("#update_user_modal").modal("hide");	   
 	};
 	//Save a record start

@@ -10,7 +10,7 @@ items.on("click", function() {
 function divEnable() {
 	$("#banner").show();
 }
-/*div disable */
+/* div disable */
 function divDisable() {
 	$("#banner").hide();
 }
@@ -39,6 +39,7 @@ function calculateCumulativeValue(loopParam) {
 		} else {
 			noOfDays = 19;
 		}
+		alert(usdCurrencyvalue);
 		if (document.getElementById('Cost' + i).value != null
 				&& document.getElementById('Resources' + i).value != null) {
 			sum = (document.getElementById('Cost' + i).value
@@ -57,7 +58,9 @@ function calculateCumulativeValue(loopParam) {
 function validateFieldsButtonToggle(loopParam) {
 	var checked = false;
 	for (i = 0; i <= loopParam - 1; i++) {
-		if ((!document.getElementById('Resources' + i).value || !document.getElementById('Cost' + i).value || document.getElementById("month").value == 0)) {
+		if ((!document.getElementById('Resources' + i).value
+				|| !document.getElementById('Cost' + i).value || document
+				.getElementById("month").value == 0)) {
 			checked = true;
 			break;
 		}
@@ -73,7 +76,7 @@ function createDynamicOptions(from, to) {
 	for (i = from; i <= to; i++) {
 		var z = document.getElementById("month");
 		var option = document.createElement("option");
-		option.text = monthNames[i-1];
+		option.text = monthNames[i - 1];
 		option.value = i;
 		z.add(option);
 	}
@@ -146,7 +149,7 @@ app
 				validateFieldsButtonToggle($scope.choices.length);
 			};
 
-		// view all records
+			// view all records
 			$scope.readOrderBook = function() {
 				$("#banner").hide();
 				$http
@@ -155,17 +158,19 @@ app
 						.then(
 								function(response) {
 									$scope.orderBookResponse = response.data;
-									// var input=response.data;									
+									// var input=response.data;
+									alert("Inside the resp");
 
 									// try 1
 									var result = [];
 									var input = [];
+
 									angular.forEach(
 											$scope.orderBookResponse,
 											function(value, key) {
 												this.push(value);
 											}, input);
-									
+
 									cmp = function(x, y) {
 										return x > y ? 1 : x < y ? -1
 												: 0;
@@ -190,8 +195,6 @@ app
 																				  -a.finYr) ]);
 									});
 
-									
-
 									// sort sowNo ascending then Year
 									// descending
 
@@ -202,15 +205,19 @@ app
 												var ref = result
 												.find(function(
 														row) {
-													return row.sowNo === cur.sowNo
-													&& row.location === cur.location
-													&& row.finYr === cur.finYr
+													return row.sowNo == cur.sowNo
+													&& row.location == cur.location
+													&& row.finYr == cur.finYr
 												});
 												if (ref) {
 													ref["prjTotal"
 													    + cur.month] = cur.prjTotal;
-													ref["invoiceTotalAmt"
-													    + cur.month] = cur.invoiceTotalAmt;
+													if (cur.month == cur.utlMonth
+															&& cur.finYr == new Date(
+																	cur.invoiceDate)
+													.getFullYear())
+														ref["invoiceTotalAmt"
+														    + cur.month] = cur.invoiceTotalAmt;
 													
 												} else {
 													var newRow = {
@@ -228,21 +235,33 @@ app
 															"sowStartDate" : cur.sowStartDate,
 															"sowEndDate" : cur.sowEndDate,
 															"sowValuetoUSD" : cur.sowValuetoUSD,
-															"finYr" : cur.finYr
+															"finYr" : cur.finYr,
+															"sowRemarks" : cur.sowRemarks
 													};
 													newRow["prjTotal"
 													       + cur.month] = cur.prjTotal;
 													result
 													.push(newRow);
-													newRow["invoiceTotalAmt"
-													       + cur.month] = cur.invoiceTotalAmt;
+													/*if (cur.month == cur.utlMonth
+															&& cur.finYr == new Date(
+																	cur.invoiceDate)
+													.getFullYear())*/
+														newRow["invoiceTotalAmt"
+														       + cur.month] = cur.invoiceTotalAmt;
 													result
 													.push(newRow);
 												}
 												return result;
-											}, [])
-											$scope.orderBookDetails = output;
-									output = angular.toJson(output);
+											}, []);
+									var arrayOut = [];
+									for (var a = 0; a < output.length; a++) {
+										if (arrayOut[arrayOut.length - 1] != output[a]) {
+											arrayOut.push(output[a]);
+										}
+									}
+
+									$scope.orderBookDetails = arrayOut;
+									// output = angular.toJson(output);
 									// $scope.orderBookDetails = output;
 								});
 			};
@@ -261,16 +280,17 @@ app
 					document.getElementById("mySelect").value = finYr;
 					financialYear = finYr;
 				}
-				
+
 				document.getElementById("month").innerHTML = "";
 				var firstDate = sowStartDate;
 				var secondDate = sowEndDate;
 				var date = new Date();
-				var currentMonth = date.getMonth()+1;
+				var currentMonth = date.getMonth() + 1;
 				var endMonth;
-				
-				if (date.getFullYear() == firstDate.getFullYear() && currentMonth < firstDate.getMonth()+1) {
-					currentMonth = firstDate.getMonth()+1;
+
+				if (date.getFullYear() == firstDate.getFullYear()
+						&& currentMonth < firstDate.getMonth() + 1) {
+					currentMonth = firstDate.getMonth() + 1;
 				}
 				if (currentMonth == 1 || currentMonth == 2) {
 					startMonth = 1;
@@ -290,14 +310,16 @@ app
 				} else if (currentMonth == 9) {
 					startMonth = 7;
 					endMonth = 12;
-				} else if (currentMonth == 10 ||  currentMonth == 11 || currentMonth == 12) {
+				} else if (currentMonth == 10 || currentMonth == 11
+						|| currentMonth == 12) {
 					startMonth = 10;
 					endMonth = 12;
 				}
-				if (date.getFullYear() == secondDate.getFullYear() && endMonth > secondDate.getMonth()+1) {
-					endMonth = secondDate.getMonth()+1;
+				if (date.getFullYear() == secondDate.getFullYear()
+						&& endMonth > secondDate.getMonth() + 1) {
+					endMonth = secondDate.getMonth() + 1;
 				}
-	
+
 				var y = document.getElementById("month");
 				var option = document.createElement("option");
 				option.text = "--Select--";
@@ -337,17 +359,18 @@ app
 				if (document.getElementById('month').value == 0) {
 					$("#monthDiv").addClass('has-error has-danger');
 				} else {
-					$("#monthDiv").removeClass(
-					'has-error has-danger');
+					$("#monthDiv").removeClass('has-error has-danger');
 				}
 
 				validateFieldsButtonToggle($scope.choices.length);
 				document.getElementById('mySelect').value = financialYear;
-				if ((document.getElementById('month').value == 1 
-						|| document.getElementById('month').value == 2 
-						|| document.getElementById('month').value == 3) && new Date().getMonth()+1 > 3) {
-					document.getElementById("mySelect").value = parseInt(document.getElementById("mySelect").value) + 1
-				} 
+				if ((document.getElementById('month').value == 1
+						|| document.getElementById('month').value == 2 || document
+						.getElementById('month').value == 3)
+						&& new Date().getMonth() + 1 > 3) {
+					document.getElementById("mySelect").value = parseInt(document
+							.getElementById("mySelect").value) + 1
+				}
 			}
 
-	});
+		});

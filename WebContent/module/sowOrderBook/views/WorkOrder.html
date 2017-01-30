@@ -41,8 +41,8 @@ body {
 									<th rowspan="2">Eng. Model</th>
 									<th rowspan="2">Contract Type</th>
 									<th rowspan="2">Status</th>
-									<th rowspan="2">Start Date</th>
-									<th rowspan="2">End Date</th>
+									<th rowspan="2">Start Date (dd-mm-yyyy)</th>
+									<th rowspan="2">End Date (dd-mm-yyyy)</th>
 									<th rowspan="2">SOW Amount</th>
 									<th rowspan="2">Year</th>
 									<th colspan="4">Projections - Q4</th>
@@ -107,7 +107,8 @@ body {
 								<td>{{orderBook.sowStartDate | date : "dd-MM-y"}}</td>
 								<td>{{orderBook.sowEndDate | date : "dd-MM-y"}}</td>
 								<td>{{orderBook.sowValuetoUSD}}</td>
-								<td>{{orderBook.finYr}}</td>
+								<td ng-if='orderBook.finYr'>{{orderBook.finYr}}</td>
+								<td ng-if='!orderBook.finYr'>{{currentYear}}</td>
 								<td ng-if='orderBook.prjTotal1'>{{orderBook.prjTotal1}}</td>
 								<td ng-if='!orderBook.prjTotal1'></td>
 								<td ng-if='orderBook.prjTotal2'>{{orderBook.prjTotal2}}</td>
@@ -164,8 +165,8 @@ body {
 								<td ng-if='orderBook.invoiceTotalAmt12'>{{orderBook.invoiceTotalAmt12}}</td>
 								<td ng-if='!orderBook.invoiceTotalAmt12'></td>
 								<td>{{orderBook.invoiceTotalAmt10--orderBook.invoiceTotalAmt11--actorderBook.invoiceTotalAmt12}}</td>
-								<td>{{sowDetail.sowRemarks}}</td>
-								<td ng-if= 'currentYear == orderBook.finYr'><button
+								<td>{{orderBook.sowRemarks}}</td>
+								<td ng-if= 'currentYear == orderBook.finYr || !orderBook.finYr'><button
 										ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr);"
 										class="btn btn-primary" data-toggle="modal"
 										data-target="#add_new_record_modal">Update</button></td>

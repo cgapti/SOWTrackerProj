@@ -158,10 +158,7 @@ app
 						.then(
 								function(response) {
 									$scope.orderBookResponse = response.data;
-									// var input=response.data;
-									alert("Inside the resp");
 
-									// try 1
 									var result = [];
 									var input = [];
 
@@ -195,7 +192,7 @@ app
 																				  -a.finYr) ]);
 									});
 
-									// sort sowNo ascending then Year
+									// sort sowNo ascending then finYr
 									// descending
 
 									var output = input
@@ -206,62 +203,91 @@ app
 												.find(function(
 														row) {
 													return row.sowNo == cur.sowNo
-													&& row.location == cur.location
 													&& row.finYr == cur.finYr
+												});
+												var set = result
+												.find(function(
+														row) {
+													return row.sowNo == cur.sowNo
+													&& row.finYr != cur.finYr
 												});
 												if (ref) {
 													ref["prjTotal"
 													    + cur.month] = cur.prjTotal;
+													if(cur.finYr == new Date(
+																	cur.invoiceDate)
+													.getFullYear())
+														if (cur.month == cur.utlMonth)
+														ref["invoiceTotalAmt"
+														    + cur.month] = cur.invoiceTotalAmt;
+														else if (cur.month != cur.utlMonth)
+															ref["invoiceTotalAmt"
+															    + cur.utlMonth] = cur.invoiceTotalAmt;
+												} else {
+													if (set) {
+														var newRow = {
+																"index" : 1,
+																"sowNo" : cur.sowNo,
+																"location" : cur.location,
+																"owner" : cur.owner,
+																"pId" : cur.pId,
+																"contractNo" : cur.contractNo,
+																"poNo" : cur.poNo,
+																"projectDtls" : cur.projectDtls,
+																"techMPrjDesc" : cur.techMPrjDesc,
+																"engmntModel" : cur.engmntModel,
+																"contractType" : cur.contractType,
+																"sowStatus" : cur.sowStatus,
+																"sowStartDate" : cur.sowStartDate,
+																"sowEndDate" : cur.sowEndDate,
+																"sowValuetoUSD" : cur.sowValuetoUSD,
+																"finYr" : cur.finYr,
+																"sowRemarks" : cur.sowRemarks
+														};
+													} else {
+														var newRow = {
+																"index" : 0,
+																"sowNo" : cur.sowNo,
+																"location" : cur.location,
+																"owner" : cur.owner,
+																"pId" : cur.pId,
+																"contractNo" : cur.contractNo,
+																"poNo" : cur.poNo,
+																"projectDtls" : cur.projectDtls,
+																"techMPrjDesc" : cur.techMPrjDesc,
+																"engmntModel" : cur.engmntModel,
+																"contractType" : cur.contractType,
+																"sowStatus" : cur.sowStatus,
+																"sowStartDate" : cur.sowStartDate,
+																"sowEndDate" : cur.sowEndDate,
+																"sowValuetoUSD" : cur.sowValuetoUSD,
+																"finYr" : cur.finYr,
+																"sowRemarks" : cur.sowRemarks
+														};
+													}
+													newRow["prjTotal"
+													       + cur.month] = cur.prjTotal;
 													if (cur.month == cur.utlMonth
 															&& cur.finYr == new Date(
 																	cur.invoiceDate)
 													.getFullYear())
-														ref["invoiceTotalAmt"
-														    + cur.month] = cur.invoiceTotalAmt;
-													
-												} else {
-													var newRow = {
-															"sowNo" : cur.sowNo,
-															"location" : cur.location,
-															"owner" : cur.owner,
-															"pId" : cur.pId,
-															"contractNo" : cur.contractNo,
-															"poNo" : cur.poNo,
-															"projectDtls" : cur.projectDtls,
-															"techMPrjDesc" : cur.techMPrjDesc,
-															"engmntModel" : cur.engmntModel,
-															"contractType" : cur.contractType,
-															"sowStatus" : cur.sowStatus,
-															"sowStartDate" : cur.sowStartDate,
-															"sowEndDate" : cur.sowEndDate,
-															"sowValuetoUSD" : cur.sowValuetoUSD,
-															"finYr" : cur.finYr,
-															"sowRemarks" : cur.sowRemarks
-													};
-													newRow["prjTotal"
-													       + cur.month] = cur.prjTotal;
-													result
-													.push(newRow);
-													/*if (cur.month == cur.utlMonth
-															&& cur.finYr == new Date(
-																	cur.invoiceDate)
-													.getFullYear())*/
 														newRow["invoiceTotalAmt"
 														       + cur.month] = cur.invoiceTotalAmt;
 													result
 													.push(newRow);
 												}
 												return result;
-											}, []);
-									var arrayOut = [];
+											}, [])
+											var arrayOut = [];
 									for (var a = 0; a < output.length; a++) {
 										if (arrayOut[arrayOut.length - 1] != output[a]) {
 											arrayOut.push(output[a]);
 										}
 									}
-
 									$scope.orderBookDetails = arrayOut;
-									// output = angular.toJson(output);
+									// output =
+									// angular.toJson(output);
+									// //
 									// $scope.orderBookDetails = output;
 								});
 			};

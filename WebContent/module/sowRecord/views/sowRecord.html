@@ -82,7 +82,7 @@
 									<td>{{sowDetail.customerToSpoc}}</td>
 									<td>{{sowDetail.customerCcSpoc}}</td>
 									<td>{{sowDetail.deliveryModel}}</td>
-									<td>{{sowDetail.sowRemarks}}</td>
+									<td>{{sowDetail.sowRemarks}}</td>									
 									<td><button ng-click="GetUserDetails(sowDetail.sowNo);"
 											class="btn btn-primary">Update</button></td>
 								</tr>
@@ -92,7 +92,7 @@
 								</tr>
 								<tr>
 									<td class="noDataWidth">
-										<p ng-show="(sowDetails | filter:curPlace).length == 0">No Search Records available.</p>
+										<p ng-show="(sowDetails | filter:curPlace).length == 0" style="width: 490px;">No Search Records available.</p>
 									</td>
 								</tr>								
 							</tbody>

@@ -514,6 +514,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		}
 				
 	};
+	
 	//convert currency value end	
 	function isNumberKey(evt) {
 		var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -522,4 +523,9 @@ app.controller('myCtrl', function($scope, $http, $window) {
 
 		return true;
 	}
+	
+
 });
+
+
+

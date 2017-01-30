@@ -1,20 +1,19 @@
 .modal-dialog {	width: 900px;}
 body {	font-size: 12px;}
-.table>thead:first-child>tr:first-child>th {	background: #4682b4;	color: #fff;	font-weight: normal;}
+.table>thead:first-child>tr:first-child>th {color: #ffffff;font-weight: normal;width: 100px;display: inline-grid;}
 .form-control {	font-size: 12px;}
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{background-color: #a99797 !important; opacity: 1; color: #100e0e;}
 .table-striped>tbody>tr:nth-child(2n+1)>td, .table-striped>tbody>tr:nth-child(2n+1)>th	{	background-color: #d9edf7;}
-#sowRecd .table-responsive {	margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: 190%;}
+
+#sowRecd {width: auto;}
+#sowRecd .table-responsive {	margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: 2503px;}
 .modal-header, .modal-footer{background: #4682b4}
 .btn-primary {color: #fff;    background-color: #102e48; border-color: #1e255a;} 
 
 
-table {
-    table-layout:fixed;
-}
+table {    table-layout:fixed;}
 
-.div-table-content {
-  height:400px;
-  overflow-y:auto;
-}
+.div-table-content {  height:400px;  overflow-y:auto; width: 2518px}
+.div-table-content td{width: 100px; display: inline-block;word-wrap: break-word;}
+
 .noDataWidth {    width: 200em;    font-size: 20px; background: #fff;}

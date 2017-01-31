@@ -524,6 +524,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		return true;
 	}
 	
+	$(".noDataWidth").parent('tr').css('background-color', '#fff');
 
 });
 

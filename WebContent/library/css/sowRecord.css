@@ -13,7 +13,7 @@ body {	font-size: 12px;}
 
 table {    table-layout:fixed;}
 
-.div-table-content {  height:400px;  overflow-y:auto; width: 2518px}
+.div-table-content {  height:400px;  overflow-y:auto; width: 2620px}
 .div-table-content td{width: 100px; display: inline-block;word-wrap: break-word;}
 
 .noDataWidth {    width: 200em;    font-size: 20px; background: #fff;}

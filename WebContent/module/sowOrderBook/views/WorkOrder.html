@@ -25,9 +25,8 @@ body {
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12" id="sowWorkOrd">
-					<div class="records_content">
+					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
-							<tbody style="overflow: scroll; height: 100px;">
 							<thead>
 								<tr>
 									<th rowspan="2">SOW No</th>
@@ -56,7 +55,7 @@ body {
 									<th rowspan="2">Remarks</th>
 									<th rowspan="2">Update</th>
 								</tr>
-								<tr>
+								<tr class="colSpanWidth">
 									<th>Jan</th>
 									<th>Feb</th>
 									<th>Mar</th>
@@ -90,9 +89,12 @@ body {
 									<th>Dec</th>
 									<th>Sum</th>
 								</tr>
-							</thead>
-							<tr
-								ng-repeat="orderBook in orderBookDetails track by $index| orderBy: 'orderBook.sowNo'">
+						</thead>
+							</table>
+							<div class="div-table-content">
+							<table>
+							<tbody>
+							<tr ng-repeat="orderBook in orderBookDetails track by $index| orderBy: 'orderBook.sowNo'">
 								<td>{{orderBook.sowNo}}</td>
 								<td>{{orderBook.location}}</td>
 								<td>{{orderBook.owner}}</td>
@@ -177,6 +179,7 @@ body {
 							</tr>
 							</tbody>
 						</table>
+						</div>
 					</div>
 				</div>
 			</div>

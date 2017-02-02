@@ -61,7 +61,7 @@
 							<tbody>
 								<tr ng-show="sowDetails.length != 0" ng-repeat="sowDetail in sowDetails | filter:curPlace">
 									<td>{{$index+1}}</td>
-									<td>{{sowDetail.sowNo}}</td>
+									<td><a href="javascipt:void()" ng-click="GetInvoiceDetails(sowDetail.sowNo);">{{sowDetail.sowNo}}</a></td>
 									<td>{{sowDetail.pId}}</td>
 									<td>{{sowDetail.contractNo}}</td>
 									<td>{{sowDetail.poNo}}</td>
@@ -706,6 +706,112 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		
+		<!-- Modal - Invoice details -->
+	<div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" style="width:1200px;" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+					<h4 class="modal-title" id="myModalLabel">INVOICE {{invoiceSowNo}}</h4>
+					<div class="records_content">
+								<table class="table table-bordered table-striped table-fixedheader">
+									<thead style="background-color: mediumturquoise; font-size: 12px;">
+										<tr>
+											<th>Sow Reference No</th>
+											<th>Project Id</th>
+											<th>Contract No</th>
+											<th>PO Ref #</th>
+											<th>Project Description</th>
+											<th>TechM Project Description</th>											
+											<th>Reference</th>
+											<th>SCB Division</th>
+											<th>Digital</th>
+											<th>Project Details</th>
+											<th>Owner</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr data-ng-repeat="invoiceDetail in invoiceFormData">											
+											<td>{{invoiceDetail.sowNo}}</td>
+											<td>{{invoiceDetail.pId}}</td>
+											<td>{{invoiceDetail.contractNo}}</td>
+											<td>{{invoiceDetail.poNo}}</td>
+											<td>{{invoiceDetail.projectDtls}}</td>
+											
+											<td>{{invoiceDetail.techMPrjDesc}}</td>											
+											<td>{{invoiceDetail.invReference}}</td>
+											<td>{{invoiceDetail.digital}}</td>
+											<td>{{invoiceDetail.projectDtls}}</td>
+											<td>{{invoiceDetail.owner}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					
+				</div>
+				<div class="modal-body">
+
+					<div class="row">
+						<div class="col-sm-12">
+							<h3>Invoice Records</h3>
+							<div class="records_content" id="invoiceRecord">
+								<table class="table table-bordered table-striped table-fixedheader">
+									<thead style="background-color: mediumturquoise; font-size: 12px;">
+										<tr>
+											<th>Sl.No</th>
+											<th>Invoice No</th>
+											<th>UTL MNTH</th>
+											<th>Invoice Date</th>
+											<th>Invoice Amount</th>
+
+											<th>VAT/TAX Amount</th>
+											<th>Full Invoice Amount</th>
+											<th>Currency</th>
+											<th>Paid Amount</th>
+											<th>Paid Date</th>
+											
+											<th>Payment ID</th>
+											<th>Invoice Status</th>
+											<th>Remarks</th>											 
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="invoiceDetail in invoiceFormData">
+											<td>{{$index+1}}</td>
+											<td>{{invoiceDetail.invoiceNo}}</td>
+											<td>{{invoiceDetail.utlMonth}}</td>
+											<td>{{invoiceDetail.invoiceDate}}</td>
+											<td>{{invoiceDetail.invoiceAmt}}</td>
+											
+											<td>{{invoiceDetail.taxAmt}}</td>											
+											<td>{{invoiceDetail.invoiceTotalAmt}}</td> 
+											<td>{{invoiceDetail.contractCurrency}}</td>
+											<td>{{invoiceDetail.paidAmt}}</td>
+											<td>{{invoiceDetail.paidDate}}</td>
+											<td>{{invoiceDetail.paymentId}}</td>
+											
+											<td>{{invoiceDetail.invoiceStatus}}</td>
+											<td>{{invoiceDetail.remarks}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+			</div>
+			 
+		</div>
+	</div>
+	</div>
+	<!-- Modal - Invoice details End-->
+		
+		
+		
 	</div>
 </body>
 </html>

@@ -45,3 +45,13 @@ body {
 }
 /* .modal-header, .modal-footer{background: #4682b4, color: #fff;}
 .btn-primary {    color: #fff;    background-color: #102e48;    border-color: #1e255a;} */
+
+#sowWorkOrd {width: auto;}
+#sowWorkOrd .table-responsive {margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: 4895px;}
+
+#invoiceRecord {width: auto;}
+#invoiceRecord .table{	margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: auto;}
+#invoiceRecord .table>thead>tr>th{ color: #ffffff; font-weight: normal; width: 100px !important; display: inline-grid;}
+.table .colSpanWidth th{ color: #ffffff; font-weight: normal; width: 100px !important; display: inline-grid;}
+
+#sowWorkOrd .div-table-content{height: 400px;    overflow-y: auto;    width: 4920px;}

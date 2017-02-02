@@ -154,7 +154,7 @@ app
 				$("#banner").hide();
 				$http
 				.get(
-						"http://10.30.54.161:8086/sow/fetchOrderBook")
+						"http://10.30.54.160:8082/sow/fetchOrderBook")
 						.then(
 								function(response) {
 									$scope.orderBookResponse = response.data;
@@ -370,7 +370,7 @@ app
 				}
 
 				$.ajax({
-					url : 'http://10.30.54.161:8086/sow/addOrderBook',
+					url : 'http://10.30.54.160:8082/sow/addOrderBook',
 					contentType : "application/json",
 					type : 'POST',
 					dataType : 'text',

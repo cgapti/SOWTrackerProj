@@ -524,8 +524,23 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		return true;
 	}
 	
-	$(".noDataWidth").parent('tr').css('background-color', '#fff');
-
+	//No Record Background Removed
+	$(".noDataWidth").parent('tr').css('background-color', '#fff');	
+	
+	//Fetch Invoice Details start
+	$scope.GetInvoiceDetails = function(sowNO){		 
+		$http.post("http://10.30.54.160:8082/sow/viewInvoice",
+				{sowNo:sowNO}, 
+				{headers: {'Content-Type': 'application/json'} 
+		})	
+		.then(function(response){				
+			$scope.invoiceFormData = response.data;
+			$scope.invoiceSowNo = sowNO;
+		})
+		$("#invoiceModal").modal("show"); 	
+	};
+	//Fetch Invoice Details End
+	
 });
 
 

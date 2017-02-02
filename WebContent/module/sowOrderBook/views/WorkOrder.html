@@ -169,11 +169,11 @@ body {
 								<td>{{orderBook.invoiceTotalAmt10--orderBook.invoiceTotalAmt11--actorderBook.invoiceTotalAmt12}}</td>
 								<td>{{orderBook.sowRemarks}}</td>
 								<td ng-if='orderBook.index==0'><button
-											ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD);"
+											ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr);"
 											class="btn btn-primary" data-toggle="modal"
 											data-target="#add_new_record_modal">Update</button></td>
 									<td ng-if='orderBook.index!=0'><button
-											ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD);"
+											ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr);"
 											class="btn btn-primary" data-toggle="modal"
 											data-target="#add_new_record_modal" disabled="disabled">Update</button></td>
 							</tr>

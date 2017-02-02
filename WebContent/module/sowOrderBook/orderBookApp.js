@@ -17,7 +17,7 @@ function divDisable() {
 
 var totalMonth;
 var monthNames = [ "January", "February", "March", "April", "May", "June",
-                   "July", "August", "September", "October", "November", "December" ];
+		"July", "August", "September", "October", "November", "December" ];
 var sowStartDate;
 var sowEnddate;
 var usdCurrencyvalue;
@@ -96,307 +96,309 @@ function isNumberKey(evt) {
 	return true;
 }
 
-//Angular
+// Angular
 var app = angular.module('orderBookApp', []);
 app
-.controller(
-		'MainCtrl',
-		function($scope, $http) {
-			$http.defaults.headers.common['Accept'] = "application/json";
-			$http.defaults.headers.common['Content-Type'] = "application/json";
-			$scope.currentYear = new Date().getFullYear();
-			$scope.field = {};
+		.controller(
+				'MainCtrl',
+				function($scope, $http) {
+					$http.defaults.headers.common['Accept'] = "application/json";
+					$http.defaults.headers.common['Content-Type'] = "application/json";
+					$scope.currentYear = new Date().getFullYear();
+					$scope.field = {};
 
-			$scope.choices = [ {
-				id : 'choice1'
-			} ];
+					$scope.choices = [ {
+						id : 'choice1'
+					} ];
 
-			$scope.addNewChoice = function() {
-				var newItemNo = $scope.choices.length + 1;
-				$scope.choices.push({
-					'id' : 'choice' + newItemNo
-				});
-			};
+					$scope.addNewChoice = function() {
+						var newItemNo = $scope.choices.length + 1;
+						$scope.choices.push({
+							'id' : 'choice' + newItemNo
+						});
+					};
 
-			$scope.removeChoice = function() {
-				calculateCumulativeValue($scope.choices.length - 1);
-				validateFieldsButtonToggle($scope.choices.length - 1);
-				var lastItem = $scope.choices.length - 1;
-				$scope.choices.splice(lastItem);
-			};
+					$scope.removeChoice = function() {
+						calculateCumulativeValue($scope.choices.length - 1);
+						validateFieldsButtonToggle($scope.choices.length - 1);
+						var lastItem = $scope.choices.length - 1;
+						$scope.choices.splice(lastItem);
+					};
 
-			$scope.myFunction = function(item) {
-				calculateCumulativeValue($scope.choices.length);
-				for (i = 0; i <= $scope.choices.length - 1; i++) {
-					if (item == 'cost'
-							&& !document.getElementById('Cost' + i).value) {
-						$("#costDiv" + i).addClass(
-						'has-error has-danger');
-					} else if (item == 'cost') {
-						$("#costDiv" + i).removeClass(
-						'has-error has-danger');
-					}
-					if (item == 'resource'
-						&& !document
-						.getElementById('Resources' + i).value) {
-						$("#resourceDiv" + i).addClass(
-						'has-error has-danger');
-					} else if (item == 'resource') {
-						$("#resourceDiv" + i).removeClass(
-						'has-error has-danger');
-					}
-				}
-				validateFieldsButtonToggle($scope.choices.length);
-			};
+					$scope.myFunction = function(item) {
+						calculateCumulativeValue($scope.choices.length);
+						for (i = 0; i <= $scope.choices.length - 1; i++) {
+							if (item == 'cost'
+									&& !document.getElementById('Cost' + i).value) {
+								$("#costDiv" + i).addClass(
+										'has-error has-danger');
+							} else if (item == 'cost') {
+								$("#costDiv" + i).removeClass(
+										'has-error has-danger');
+							}
+							if (item == 'resource'
+									&& !document
+											.getElementById('Resources' + i).value) {
+								$("#resourceDiv" + i).addClass(
+										'has-error has-danger');
+							} else if (item == 'resource') {
+								$("#resourceDiv" + i).removeClass(
+										'has-error has-danger');
+							}
+						}
+						validateFieldsButtonToggle($scope.choices.length);
+					};
 
-			// view all records
-			$scope.readOrderBook = function() {
-				$("#banner").hide();
-				$http
-				.get(
-						"http://10.30.54.160:8082/sow/fetchOrderBook")
-						.then(
-								function(response) {
-									$scope.orderBookResponse = response.data;
+					// view all records
+					$scope.readOrderBook = function() {
+						$("#banner").hide();
+						$http
+								.get(
+										"http://10.30.54.160:8082/sow/fetchOrderBook")
+								.then(
+										function(response) {
+											$scope.orderBookResponse = response.data;
 
-									var result = [];
-									var input = [];
+											var result = [];
+											var input = [];
 
-									angular.forEach(
-											$scope.orderBookResponse,
-											function(value, key) {
-												this.push(value);
-											}, input);
+											angular.forEach(
+													$scope.orderBookResponse,
+													function(value, key) {
+														this.push(value);
+													}, input);
 
-									cmp = function(x, y) {
-										return x > y ? 1 : x < y ? -1
-												: 0;
-									};
+											cmp = function(x, y) {
+												return x > y ? 1 : x < y ? -1
+														: 0;
+											};
 
-									input
-									.sort(function(a, b) {
-										return cmp(
-												[
-												 cmp(
-														 a.sowNo,
-														 b.sowNo),
-														 cmp(
-																 -a.finYr,
-																 -b.finYr) ],
-																 [
-																  cmp(
-																		  b.sowNo,
-																		  a.sowNo),
-																		  cmp(
-																				  -b.finYr,
-																				  -a.finYr) ]);
-									});
+											input
+													.sort(function(a, b) {
+														return cmp(
+																[
+																		cmp(
+																				a.sowNo,
+																				b.sowNo),
+																		cmp(
+																				-a.finYr,
+																				-b.finYr) ],
+																[
+																		cmp(
+																				b.sowNo,
+																				a.sowNo),
+																		cmp(
+																				-b.finYr,
+																				-a.finYr) ]);
+													});
 
-									// sort sowNo ascending then finYr
-									// descending
+											// sort sowNo ascending then finYr
+											// descending
 
-									var output = input
-									.reduce(
-											function(result,
-													cur) {
-												var ref = result
-												.find(function(
-														row) {
-													return row.sowNo == cur.sowNo
-													&& row.finYr == cur.finYr
-												});
-												var set = result
-												.find(function(
-														row) {
-													return row.sowNo == cur.sowNo
-													&& row.finYr != cur.finYr
-												});
-												if (ref) {
-													ref["prjTotal"
-													    + cur.month] = cur.prjTotal;
-													if(cur.finYr == new Date(
-																	cur.invoiceDate)
-													.getFullYear())
-														if (cur.month == cur.utlMonth)
-														ref["invoiceTotalAmt"
-														    + cur.month] = cur.invoiceTotalAmt;
-														else if (cur.month != cur.utlMonth)
-															ref["invoiceTotalAmt"
-															    + cur.utlMonth] = cur.invoiceTotalAmt;
-												} else {
-													if (set) {
-														var newRow = {
-																"index" : 1,
-																"sowNo" : cur.sowNo,
-																"location" : cur.location,
-																"owner" : cur.owner,
-																"pId" : cur.pId,
-																"contractNo" : cur.contractNo,
-																"poNo" : cur.poNo,
-																"projectDtls" : cur.projectDtls,
-																"techMPrjDesc" : cur.techMPrjDesc,
-																"engmntModel" : cur.engmntModel,
-																"contractType" : cur.contractType,
-																"sowStatus" : cur.sowStatus,
-																"sowStartDate" : cur.sowStartDate,
-																"sowEndDate" : cur.sowEndDate,
-																"sowValuetoUSD" : cur.sowValuetoUSD,
-																"finYr" : cur.finYr,
-																"sowRemarks" : cur.sowRemarks
-														};
-													} else {
-														var newRow = {
-																"index" : 0,
-																"sowNo" : cur.sowNo,
-																"location" : cur.location,
-																"owner" : cur.owner,
-																"pId" : cur.pId,
-																"contractNo" : cur.contractNo,
-																"poNo" : cur.poNo,
-																"projectDtls" : cur.projectDtls,
-																"techMPrjDesc" : cur.techMPrjDesc,
-																"engmntModel" : cur.engmntModel,
-																"contractType" : cur.contractType,
-																"sowStatus" : cur.sowStatus,
-																"sowStartDate" : cur.sowStartDate,
-																"sowEndDate" : cur.sowEndDate,
-																"sowValuetoUSD" : cur.sowValuetoUSD,
-																"finYr" : cur.finYr,
-																"sowRemarks" : cur.sowRemarks
-														};
-													}
-													newRow["prjTotal"
-													       + cur.month] = cur.prjTotal;
-													if (cur.month == cur.utlMonth
-															&& cur.finYr == new Date(
-																	cur.invoiceDate)
-													.getFullYear())
-														newRow["invoiceTotalAmt"
-														       + cur.month] = cur.invoiceTotalAmt;
-													result
-													.push(newRow);
-												}
-												return result;
-											}, [])
+											var output = input
+													.reduce(
+															function(result,
+																	cur) {
+																var ref = result
+																		.find(function(
+																				row) {
+																			return row.sowNo == cur.sowNo
+																					&& row.finYr == cur.finYr
+																		});
+																var set = result
+																		.find(function(
+																				row) {
+																			return row.sowNo == cur.sowNo
+																					&& row.finYr != cur.finYr
+																		});
+																if (ref) {
+																	ref["prjTotal"
+																			+ cur.month] = cur.prjTotal;
+																	if (cur.finYr == new Date(
+																			cur.invoiceDate)
+																			.getFullYear())
+																		if (cur.month == cur.utlMonth)
+																			ref["invoiceTotalAmt"
+																					+ cur.month] = cur.invoiceTotalAmt;
+																		else if (cur.month != cur.utlMonth)
+																			ref["invoiceTotalAmt"
+																					+ cur.utlMonth] = cur.invoiceTotalAmt;
+																} else {
+																	if (set) {
+																		var newRow = {
+																			"index" : 1,
+																			"sowNo" : cur.sowNo,
+																			"location" : cur.location,
+																			"owner" : cur.owner,
+																			"pId" : cur.pId,
+																			"contractNo" : cur.contractNo,
+																			"poNo" : cur.poNo,
+																			"projectDtls" : cur.projectDtls,
+																			"techMPrjDesc" : cur.techMPrjDesc,
+																			"engmntModel" : cur.engmntModel,
+																			"contractType" : cur.contractType,
+																			"sowStatus" : cur.sowStatus,
+																			"sowStartDate" : cur.sowStartDate,
+																			"sowEndDate" : cur.sowEndDate,
+																			"sowValuetoUSD" : cur.sowValuetoUSD,
+																			"finYr" : cur.finYr,
+																			"sowRemarks" : cur.sowRemarks
+																		};
+																	} else {
+																		var newRow = {
+																			"index" : 0,
+																			"sowNo" : cur.sowNo,
+																			"location" : cur.location,
+																			"owner" : cur.owner,
+																			"pId" : cur.pId,
+																			"contractNo" : cur.contractNo,
+																			"poNo" : cur.poNo,
+																			"projectDtls" : cur.projectDtls,
+																			"techMPrjDesc" : cur.techMPrjDesc,
+																			"engmntModel" : cur.engmntModel,
+																			"contractType" : cur.contractType,
+																			"sowStatus" : cur.sowStatus,
+																			"sowStartDate" : cur.sowStartDate,
+																			"sowEndDate" : cur.sowEndDate,
+																			"sowValuetoUSD" : cur.sowValuetoUSD,
+																			"finYr" : cur.finYr,
+																			"sowRemarks" : cur.sowRemarks
+																		};
+																	}
+																	newRow["prjTotal"
+																			+ cur.month] = cur.prjTotal;
+																	if (cur.month == cur.utlMonth
+																			&& cur.finYr == new Date(
+																					cur.invoiceDate)
+																					.getFullYear())
+																		newRow["invoiceTotalAmt"
+																				+ cur.month] = cur.invoiceTotalAmt;
+																	result
+																			.push(newRow);
+																}
+																return result;
+															}, [])
 											var arrayOut = [];
-									for (var a = 0; a < output.length; a++) {
-										if (arrayOut[arrayOut.length - 1] != output[a]) {
-											arrayOut.push(output[a]);
-										}
-									}
-									$scope.orderBookDetails = arrayOut;
-									// output =
-									// angular.toJson(output);
-									// //
-									// $scope.orderBookDetails = output;
-								});
-			};
+											for (var a = 0; a < output.length; a++) {
+												if (arrayOut[arrayOut.length - 1] != output[a]) {
+													arrayOut.push(output[a]);
+												}
+											}
+											$scope.orderBookDetails = arrayOut;
+											// output =
+											// angular.toJson(output);
+											// //
+											// $scope.orderBookDetails = output;
+										});
+					};
 
-			$scope.getOrderBookDetails = function(sowId, firstdate,
-					secondDate, currencyValue, finYr) {
-				var firstDate = new Date(firstdate);
-				var secondDate = new Date(secondDate);
-				sowStartDate = firstDate;
-				sowEndDate = secondDate;
-				usdCurrencyvalue = currencyValue;
-				document.getElementById('form_sowNo').value = sowId;
-				if (firstdate == null || secondDate == null) {
-					document.getElementById('sowReferenceNo').innerHTML = "<font size='2' color='red'><b>Please Update Sow Start Date and Sow End Date </b>!</font>";
-				} else {
-					document.getElementById("mySelect").value = finYr;
-					financialYear = finYr;
-				}
+					$scope.getOrderBookDetails = function(sowId, firstdate,
+							secondDate, currencyValue, finYr) {
+						var firstDate = new Date(firstdate);
+						var secondDate = new Date(secondDate);
+						sowStartDate = firstDate;
+						sowEndDate = secondDate;
+						usdCurrencyvalue = currencyValue;
+						document.getElementById('form_sowNo').value = sowId;
+						if (firstdate == null || secondDate == null) {
+							document.getElementById('sowReferenceNo').innerHTML = "<font size='2' color='red'><b>Please Update Sow Start Date and Sow End Date </b>!</font>";
+						} else {
+							document.getElementById("mySelect").value = finYr;
+							if (finYr == null)
+								finYr = currentYear;
+							financialYear = finYr;
+						}
 
-				document.getElementById("month").innerHTML = "";
-				var firstDate = sowStartDate;
-				var secondDate = sowEndDate;
-				var date = new Date();
-				var currentMonth = date.getMonth() + 1;
-				var endMonth;
+						document.getElementById("month").innerHTML = "";
+						var firstDate = sowStartDate;
+						var secondDate = sowEndDate;
+						var date = new Date();
+						var currentMonth = date.getMonth() + 1;
+						var endMonth;
 
-				if (date.getFullYear() == firstDate.getFullYear()
-						&& currentMonth < firstDate.getMonth() + 1) {
-					currentMonth = firstDate.getMonth() + 1;
-				}
-				if (currentMonth == 1 || currentMonth == 2) {
-					startMonth = 1;
-					endMonth = 3;
-				} else if (currentMonth == 3) {
-					startMonth = 1;
-					endMonth = 6;
-				} else if (currentMonth == 4 || currentMonth == 5) {
-					startMonth = 4;
-					endMonth = 6;
-				} else if (currentMonth == 6) {
-					startMonth = 4;
-					endMonth = 9;
-				} else if (currentMonth == 7 || currentMonth == 8) {
-					startMonth = 7;
-					endMonth = 9;
-				} else if (currentMonth == 9) {
-					startMonth = 7;
-					endMonth = 12;
-				} else if (currentMonth == 10 || currentMonth == 11
-						|| currentMonth == 12) {
-					startMonth = 10;
-					endMonth = 12;
-				}
-				if (date.getFullYear() == secondDate.getFullYear()
-						&& endMonth > secondDate.getMonth() + 1) {
-					endMonth = secondDate.getMonth() + 1;
-				}
+						if (date.getFullYear() == firstDate.getFullYear()
+								&& currentMonth < firstDate.getMonth() + 1) {
+							currentMonth = firstDate.getMonth() + 1;
+						}
+						if (currentMonth == 1 || currentMonth == 2) {
+							startMonth = 1;
+							endMonth = 3;
+						} else if (currentMonth == 3) {
+							startMonth = 1;
+							endMonth = 6;
+						} else if (currentMonth == 4 || currentMonth == 5) {
+							startMonth = 4;
+							endMonth = 6;
+						} else if (currentMonth == 6) {
+							startMonth = 4;
+							endMonth = 9;
+						} else if (currentMonth == 7 || currentMonth == 8) {
+							startMonth = 7;
+							endMonth = 9;
+						} else if (currentMonth == 9) {
+							startMonth = 7;
+							endMonth = 12;
+						} else if (currentMonth == 10 || currentMonth == 11
+								|| currentMonth == 12) {
+							startMonth = 10;
+							endMonth = 12;
+						}
+						if (date.getFullYear() == secondDate.getFullYear()
+								&& endMonth > secondDate.getMonth() + 1) {
+							endMonth = secondDate.getMonth() + 1;
+						}
 
-				var y = document.getElementById("month");
-				var option = document.createElement("option");
-				option.text = "--Select--";
-				option.value = 0;
-				y.add(option);
-				createDynamicOptions(startMonth, endMonth);
-				if (currentMonth == 12) {
-					createDynamicOptions(1, 3);
-				}
+						var y = document.getElementById("month");
+						var option = document.createElement("option");
+						option.text = "--Select--";
+						option.value = 0;
+						y.add(option);
+						createDynamicOptions(startMonth, endMonth);
+						if (currentMonth == 12) {
+							createDynamicOptions(1, 3);
+						}
 
-			};
+					};
 
-			$scope.updateOrderBookDetails = function() {
-				// get values
-				var sowNo = $("#form_sowNo").val();
-				var cum = $("#cumulativeCost").val();
-				var formData = {
-						"sowNo" : sowNo,
-						"finYr" : document.getElementById('mySelect').value,
-						"month" : document.getElementById('month').value,
-						"prjTotal" : cum
-				}
+					$scope.updateOrderBookDetails = function() {
+						// get values
+						var sowNo = $("#form_sowNo").val();
+						var cum = $("#cumulativeCost").val();
+						var formData = {
+							"sowNo" : sowNo,
+							"finYr" : document.getElementById('mySelect').value,
+							"month" : document.getElementById('month').value,
+							"prjTotal" : cum
+						}
 
-				$.ajax({
-					url : 'http://10.30.54.160:8082/sow/addOrderBook',
-					contentType : "application/json",
-					type : 'POST',
-					dataType : 'text',
-					data : angular.toJson(formData)
-				}).done(function(response) {
-					alert("Record added successfully");
+						$.ajax({
+							url : 'http://10.30.54.160:8082/sow/addOrderBook',
+							contentType : "application/json",
+							type : 'POST',
+							dataType : 'text',
+							data : angular.toJson(formData)
+						}).done(function(response) {
+							alert("Record added successfully");
+						});
+
+					};
+
+					$scope.onMonthChange = function() {
+						if (document.getElementById('month').value == 0) {
+							$("#monthDiv").addClass('has-error has-danger');
+						} else {
+							$("#monthDiv").removeClass('has-error has-danger');
+						}
+
+						validateFieldsButtonToggle($scope.choices.length);
+						document.getElementById('mySelect').value = financialYear;
+						if ((document.getElementById('month').value == 1
+								|| document.getElementById('month').value == 2 || document
+								.getElementById('month').value == 3)
+								&& new Date().getMonth() + 1 > 3) {
+							document.getElementById("mySelect").value = parseInt(document
+									.getElementById("mySelect").value) + 1
+						}
+					}
+
 				});
-
-			};
-
-			$scope.onMonthChange = function() {
-				if (document.getElementById('month').value == 0) {
-					$("#monthDiv").addClass('has-error has-danger');
-				} else {
-					$("#monthDiv").removeClass('has-error has-danger');
-				}
-
-				validateFieldsButtonToggle($scope.choices.length);
-				document.getElementById('mySelect').value = financialYear;
-				if ((document.getElementById('month').value == 1
-						|| document.getElementById('month').value == 2 || document
-						.getElementById('month').value == 3)
-						&& new Date().getMonth() + 1 > 3) {
-					document.getElementById("mySelect").value = parseInt(document
-							.getElementById("mySelect").value) + 1
-				}
-			}
-
-		});

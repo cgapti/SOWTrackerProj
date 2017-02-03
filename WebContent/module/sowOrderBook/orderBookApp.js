@@ -202,13 +202,13 @@ app
 																var ref = result
 																		.find(function(
 																				row) {
-																			return row.sowNo == cur.sowNo
-																					&& row.finYr == cur.finYr
+																			return row.sowNo === cur.sowNo
+																					&& row.finYr === cur.finYr
 																		});
 																var set = result
 																		.find(function(
 																				row) {
-																			return row.sowNo == cur.sowNo
+																			return row.sowNo === cur.sowNo
 																					&& row.finYr != cur.finYr
 																		});
 																if (ref) {
@@ -242,7 +242,7 @@ app
 																			"sowEndDate" : cur.sowEndDate,
 																			"sowValuetoUSD" : cur.sowValuetoUSD,
 																			"finYr" : cur.finYr,
-																			"sowRemarks" : cur.sowRemarks
+																			"obRemarks" : cur.obRemarks
 																		};
 																	} else {
 																		var newRow = {
@@ -262,7 +262,7 @@ app
 																			"sowEndDate" : cur.sowEndDate,
 																			"sowValuetoUSD" : cur.sowValuetoUSD,
 																			"finYr" : cur.finYr,
-																			"sowRemarks" : cur.sowRemarks
+																			"obRemarks" : cur.obRemarks
 																		};
 																	}
 																	newRow["prjTotal"
@@ -293,12 +293,13 @@ app
 					};
 
 					$scope.getOrderBookDetails = function(sowId, firstdate,
-							secondDate, currencyValue, finYr) {
+							secondDate, currencyValue, finYr, obRemarks) {
 						var firstDate = new Date(firstdate);
 						var secondDate = new Date(secondDate);
 						sowStartDate = firstDate;
 						sowEndDate = secondDate;
 						usdCurrencyvalue = currencyValue;
+						$scope.txt=obRemarks;
 						document.getElementById('form_sowNo').value = sowId;
 						if (firstdate == null || secondDate == null) {
 							document.getElementById('sowReferenceNo').innerHTML = "<font size='2' color='red'><b>Please Update Sow Start Date and Sow End Date </b>!</font>";
@@ -400,5 +401,15 @@ app
 									.getElementById("mySelect").value) + 1
 						}
 					}
+
+					//edit text area
+					$scope.edit = function() {
+						$("#Remarks").removeAttr('disabled');						
+					};
+
+					// reset text area
+					$scope.reset = function() {
+						$scope.txt = '';
+					};
 
 				});

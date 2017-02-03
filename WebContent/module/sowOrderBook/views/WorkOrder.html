@@ -12,10 +12,11 @@ body {
 	background-position: right top;
 	bgcolor: #E6E6FA
 }
+
 #sowWorkOrd .table {
-    width: auto !important;
-    max-width: 100%;
-    margin-bottom: 20px;
+	width: auto !important;
+	max-width: 100%;
+	margin-bottom: 20px;
 }
 </style>
 </head>
@@ -89,96 +90,97 @@ body {
 									<th>Dec</th>
 									<th>Sum</th>
 								</tr>
-						</thead>
-							</table>
-							<div class="div-table-content">
-							<table>
-							<tbody>
-							<tr ng-repeat="orderBook in orderBookDetails track by $index| orderBy: 'orderBook.sowNo'">
-								<td>{{orderBook.sowNo}}</td>
-								<td>{{orderBook.location}}</td>
-								<td>{{orderBook.owner}}</td>
-								<td>{{orderBook.pId}}</td>
-								<td>{{orderBook.contractNo}}</td>
-								<td>{{orderBook.poNo}}</td>
-								<td>{{orderBook.projectDtls}}</td>
-								<td>{{orderBook.techMPrjDesc}}</td>
-								<td>{{orderBook.engmntModel}}</td>
-								<td>{{contractTypeContract}}</td>
-								<td>{{orderBook.sowStatus}}</td>
-								<td>{{orderBook.sowStartDate | date : "dd-MM-y"}}</td>
-								<td>{{orderBook.sowEndDate | date : "dd-MM-y"}}</td>
-								<td>{{orderBook.sowValuetoUSD}}</td>
-								<td ng-if='orderBook.finYr'>{{orderBook.finYr}}</td>
-								<td ng-if='!orderBook.finYr'>{{currentYear}}</td>
-								<td ng-if='orderBook.prjTotal1'>{{orderBook.prjTotal1}}</td>
-								<td ng-if='!orderBook.prjTotal1'></td>
-								<td ng-if='orderBook.prjTotal2'>{{orderBook.prjTotal2}}</td>
-								<td ng-if='!orderBook.prjTotal2'></td>
-								<td ng-if='orderBook.prjTotal3'>{{orderBook.prjTotal3}}</td>
-								<td ng-if='!orderBook.prjTotal3'></td>
-								<td>{{orderBook.prjTotal1--orderBook.prjTotal2--orderBook.prjTotal3}}</td>
-								<td ng-if='orderBook.invoiceTotalAmt1'>{{orderBook.invoiceTotalAmt1}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt1'></td>
-								<td ng-if='orderBook.invoiceTotalAmt2'>{{orderBook.invoiceTotalAmt2}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt2'></td>
-								<td ng-if='orderBook.invoiceTotalAmt3'>{{orderBook.invoiceTotalAmt3}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt3'></td>
-								<td>{{orderBook.invoiceTotalAmt1--orderBook.invoiceTotalAmt2--orderBook.invoiceTotalAmt3}}</td>
-								<td ng-if='orderBook.prjTotal4'>{{orderBook.prjTotal4}}</td>
-								<td ng-if='!orderBook.prjTotal4'></td>
-								<td ng-if='orderBook.prjTotal5'>{{orderBook.prjTotal5}}</td>
-								<td ng-if='!orderBook.prjTotal5'></td>
-								<td ng-if='orderBook.prjTotal6'>{{orderBook.prjTotal6}}</td>
-								<td ng-if='!orderBook.prjTotal6'></td>
-								<td>{{orderBook.prjTotal4--orderBook.prjTotal5--orderBook.prjTotal6}}</td>
-								<td ng-if='orderBook.invoiceTotalAmt4'>{{orderBook.invoiceTotalAmt4}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt4'></td>
-								<td ng-if='orderBook.invoiceTotalAmt5'>{{orderBook.invoiceTotalAmt5}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt5'></td>
-								<td ng-if='orderBook.invoiceTotalAmt6'>{{orderBook.invoiceTotalAmt6}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt6'></td>
-								<td>{{orderBook.invoiceTotalAmt4--orderBook.invoiceTotalAmt5--orderBook.invoiceTotalAmt6}}</td>
-								<td ng-if='orderBook.prjTotal7'>{{orderBook.prjTotal7}}</td>
-								<td ng-if='!orderBook.prjTotal7'></td>
-								<td ng-if='orderBook.prjTotal8'>{{orderBook.prjTotal8}}</td>
-								<td ng-if='!orderBook.prjTotal8'></td>
-								<td ng-if='orderBook.prjTotal9'>{{orderBook.prjTotal9}}</td>
-								<td ng-if='!orderBook.prjTotal9'></td>
-								<td>{{orderBook.prjTotal7--orderBook.prjTotal8--orderBook.prjTotal9}}</td>
-								<td ng-if='orderBook.invoiceTotalAmt7'>{{orderBook.invoiceTotalAmt7}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt7'></td>
-								<td ng-if='orderBook.invoiceTotalAmt8'>{{orderBook.invoiceTotalAmt8}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt8'></td>
-								<td ng-if='orderBook.invoiceTotalAmt9'>{{orderBook.invoiceTotalAmt9}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt9'></td>
-								<td>{{orderBook.invoiceTotalAmt7--orderBook.invoiceTotalAmt8--orderBook.invoiceTotalAmt9}}</td>
-								<td ng-if='orderBook.prjTotal10'>{{orderBook.prjTotal10}}</td>
-								<td ng-if='!orderBook.prjTotal10'></td>
-								<td ng-if='orderBook.prjTotal11'>{{orderBook.prjTotal11}}</td>
-								<td ng-if='!orderBook.prjTotal11'></td>
-								<td ng-if='orderBook.prjTotal12'>{{orderBook.prjTotal12}}</td>
-								<td ng-if='!orderBook.prjTotal12'></td>
-								<td>{{orderBook.prjTotal10--orderBook.prjTotal11--orderBook.prjTotal12}}</td>
-								<td ng-if='orderBook.invoiceTotalAmt10'>{{orderBook.invoiceTotalAmt10}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt10'></td>
-								<td ng-if='orderBook.invoiceTotalAmt11'>{{orderBook.invoiceTotalAmt11}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt11'></td>
-								<td ng-if='orderBook.invoiceTotalAmt12'>{{orderBook.invoiceTotalAmt12}}</td>
-								<td ng-if='!orderBook.invoiceTotalAmt12'></td>
-								<td>{{orderBook.invoiceTotalAmt10--orderBook.invoiceTotalAmt11--actorderBook.invoiceTotalAmt12}}</td>
-								<td>{{orderBook.sowRemarks}}</td>
-								<td ng-if='orderBook.index==0'><button
-											ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr);"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#add_new_record_modal">Update</button></td>
-									<td ng-if='orderBook.index!=0'><button
-											ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr);"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#add_new_record_modal" disabled="disabled">Update</button></td>
-							</tr>
-							</tbody>
+							</thead>
 						</table>
+						<div class="div-table-content">
+							<table>
+								<tbody>
+									<tr
+										ng-repeat="orderBook in orderBookDetails track by $index| orderBy: 'orderBook.sowNo'">
+										<td>{{orderBook.sowNo}}</td>
+										<td>{{orderBook.location}}</td>
+										<td>{{orderBook.owner}}</td>
+										<td>{{orderBook.pId}}</td>
+										<td>{{orderBook.contractNo}}</td>
+										<td>{{orderBook.poNo}}</td>
+										<td>{{orderBook.projectDtls}}</td>
+										<td>{{orderBook.techMPrjDesc}}</td>
+										<td>{{orderBook.engmntModel}}</td>
+										<td>{{contractTypeContract}}</td>
+										<td>{{orderBook.sowStatus}}</td>
+										<td>{{orderBook.sowStartDate | date : "dd-MM-y"}}</td>
+										<td>{{orderBook.sowEndDate | date : "dd-MM-y"}}</td>
+										<td>{{orderBook.sowValuetoUSD}}</td>
+										<td ng-if='orderBook.finYr'>{{orderBook.finYr}}</td>
+										<td ng-if='!orderBook.finYr'>{{currentYear}}</td>
+										<td ng-if='orderBook.prjTotal1'>{{orderBook.prjTotal1}}</td>
+										<td ng-if='!orderBook.prjTotal1'></td>
+										<td ng-if='orderBook.prjTotal2'>{{orderBook.prjTotal2}}</td>
+										<td ng-if='!orderBook.prjTotal2'></td>
+										<td ng-if='orderBook.prjTotal3'>{{orderBook.prjTotal3}}</td>
+										<td ng-if='!orderBook.prjTotal3'></td>
+										<td>{{orderBook.prjTotal1--orderBook.prjTotal2--orderBook.prjTotal3}}</td>
+										<td ng-if='orderBook.invoiceTotalAmt1'>{{orderBook.invoiceTotalAmt1}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt1'></td>
+										<td ng-if='orderBook.invoiceTotalAmt2'>{{orderBook.invoiceTotalAmt2}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt2'></td>
+										<td ng-if='orderBook.invoiceTotalAmt3'>{{orderBook.invoiceTotalAmt3}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt3'></td>
+										<td>{{orderBook.invoiceTotalAmt1--orderBook.invoiceTotalAmt2--orderBook.invoiceTotalAmt3}}</td>
+										<td ng-if='orderBook.prjTotal4'>{{orderBook.prjTotal4}}</td>
+										<td ng-if='!orderBook.prjTotal4'></td>
+										<td ng-if='orderBook.prjTotal5'>{{orderBook.prjTotal5}}</td>
+										<td ng-if='!orderBook.prjTotal5'></td>
+										<td ng-if='orderBook.prjTotal6'>{{orderBook.prjTotal6}}</td>
+										<td ng-if='!orderBook.prjTotal6'></td>
+										<td>{{orderBook.prjTotal4--orderBook.prjTotal5--orderBook.prjTotal6}}</td>
+										<td ng-if='orderBook.invoiceTotalAmt4'>{{orderBook.invoiceTotalAmt4}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt4'></td>
+										<td ng-if='orderBook.invoiceTotalAmt5'>{{orderBook.invoiceTotalAmt5}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt5'></td>
+										<td ng-if='orderBook.invoiceTotalAmt6'>{{orderBook.invoiceTotalAmt6}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt6'></td>
+										<td>{{orderBook.invoiceTotalAmt4--orderBook.invoiceTotalAmt5--orderBook.invoiceTotalAmt6}}</td>
+										<td ng-if='orderBook.prjTotal7'>{{orderBook.prjTotal7}}</td>
+										<td ng-if='!orderBook.prjTotal7'></td>
+										<td ng-if='orderBook.prjTotal8'>{{orderBook.prjTotal8}}</td>
+										<td ng-if='!orderBook.prjTotal8'></td>
+										<td ng-if='orderBook.prjTotal9'>{{orderBook.prjTotal9}}</td>
+										<td ng-if='!orderBook.prjTotal9'></td>
+										<td>{{orderBook.prjTotal7--orderBook.prjTotal8--orderBook.prjTotal9}}</td>
+										<td ng-if='orderBook.invoiceTotalAmt7'>{{orderBook.invoiceTotalAmt7}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt7'></td>
+										<td ng-if='orderBook.invoiceTotalAmt8'>{{orderBook.invoiceTotalAmt8}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt8'></td>
+										<td ng-if='orderBook.invoiceTotalAmt9'>{{orderBook.invoiceTotalAmt9}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt9'></td>
+										<td>{{orderBook.invoiceTotalAmt7--orderBook.invoiceTotalAmt8--orderBook.invoiceTotalAmt9}}</td>
+										<td ng-if='orderBook.prjTotal10'>{{orderBook.prjTotal10}}</td>
+										<td ng-if='!orderBook.prjTotal10'></td>
+										<td ng-if='orderBook.prjTotal11'>{{orderBook.prjTotal11}}</td>
+										<td ng-if='!orderBook.prjTotal11'></td>
+										<td ng-if='orderBook.prjTotal12'>{{orderBook.prjTotal12}}</td>
+										<td ng-if='!orderBook.prjTotal12'></td>
+										<td>{{orderBook.prjTotal10--orderBook.prjTotal11--orderBook.prjTotal12}}</td>
+										<td ng-if='orderBook.invoiceTotalAmt10'>{{orderBook.invoiceTotalAmt10}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt10'></td>
+										<td ng-if='orderBook.invoiceTotalAmt11'>{{orderBook.invoiceTotalAmt11}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt11'></td>
+										<td ng-if='orderBook.invoiceTotalAmt12'>{{orderBook.invoiceTotalAmt12}}</td>
+										<td ng-if='!orderBook.invoiceTotalAmt12'></td>
+										<td>{{orderBook.invoiceTotalAmt10--orderBook.invoiceTotalAmt11--actorderBook.invoiceTotalAmt12}}</td>
+										<td>{{orderBook.obRemarks}}</td>
+										<td ng-if='orderBook.index==0'><button
+												ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr, orderBook.obRemarks);"
+												class="btn btn-primary" data-toggle="modal"
+												data-target="#add_new_record_modal">Update</button></td>
+										<td ng-if='orderBook.index!=0'><button
+												ng-click="getOrderBookDetails(orderBook.sowNo,orderBook.sowStartDate,orderBook.sowEndDate, orderBook.sowValuetoUSD, orderBook.finYr, orderBook.obRemarks);"
+												class="btn btn-primary" data-toggle="modal"
+												data-target="#add_new_record_modal" disabled="disabled">Update</button></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -220,15 +222,16 @@ body {
 											<div class="row">
 												<div class="col-md-6" id="yearDiv">
 													<div class="form-group" id="yearDiv">
-														<label for="form_Year">Year</label>
-														<input type="text" disabled name="days" id="mySelect" class="form-control"></input>
+														<label for="form_Year">Year</label> <input type="text"
+															disabled name="days" id="mySelect" class="form-control"></input>
 														<div class="help-block with-errors"></div>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group" id="monthDiv">
 														<label for="form_Month">Month</label> <select
-															class="form-control" name="month" id="month" ng-blur="onMonthChange()">
+															class="form-control" name="month" id="month"
+															ng-blur="onMonthChange()">
 															<option value="0">--Select--</option>
 														</select>
 														<div class="help-block with-errors"></div>
@@ -250,7 +253,8 @@ body {
 													<div class="col-sm-4">
 														<div class="form-group" id=resourceDiv{{$index}}>
 															<label for="form_Resources">No of Resources</label> <input
-																type="number" onkeypress="return isNumberKey(event)" name="resources{{$index}}" id="Resources{{$index}}"
+																type="number" onkeypress="return isNumberKey(event)"
+																name="resources{{$index}}" id="Resources{{$index}}"
 																class="form-control" placeholder="No of Resources"
 																ng-blur="myFunction('resource')">
 														</div>
@@ -275,14 +279,13 @@ body {
 														<div class="help-block with-errors"></div>
 													</div>
 												</div>
-												<div class="col-sm-10">
+												<div class="col-sm-2">
 													<div class="form-group">
 														<button class="btn btn-warning" ng-click="removeChoice()">Remove</button>
 														<div class="help-block with-errors"></div>
 													</div>
 												</div>
 											</div>
-
 											<div class="row">
 												<div class="col-sm-12">
 													<div class="form-group">
@@ -295,20 +298,45 @@ body {
 													</div>
 												</div>
 											</div>
+											<div class="form-horizontal">
+												<div class="form-group">
+													<div class="col-xs-10">
+														<textarea rows="4" cols="50" name="Remarks" id="Remarks"
+															class="form-control" ng-model="txt" value="$scope.txt"
+															disabled="disabled" placeholder="Enter the remarks here"></textarea>
+													</div>
+													<div class="col-xs-2">
+														<button class="btn uk-button btn-block btn-success"
+															ng-click="edit()">&nbsp;Edit&nbsp;</button>
+														<button class="btn uk-button btn-block btn-warning"
+															ng-click="reset()">
+															Reset</button>
+													</div>
+												</div>
+											</div>
 										</div>
+									</form>
+								</div>
+								<div class="row">
+									<div class="col-sm-2">
 										<div class="form-group">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											<button type="submit" class="btn btn-default"
 												data-dismiss="modal">Cancel</button>
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<div class="form-group">
 											<button type="submit" disabled id="submit"
 												class="btn btn-primary" ng-click="updateOrderBookDetails()">Save</button>
 										</div>
-
-									</form>
+									</div>
 								</div>
+
 							</div>
 						</div>
-						<div class="modal-footer" ></div>
 					</div>
+					<div class="modal-footer"></div>
 				</div>
 			</div>
 		</div>

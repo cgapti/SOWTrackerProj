@@ -552,21 +552,64 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	//No Record Background Removed
 	$(".noDataWidth").parent('tr').css('background-color', '#fff');	
 	
+	
+	
+	
+	
+	
 	//Fetch Invoice Details start
 	$scope.GetInvoiceDetails = function(sowNO){		 
 		$http.post("http://10.30.54.160:8082/sow/viewInvoice",
 				{sowNo:sowNO}, 
 				{headers: {'Content-Type': 'application/json'} 
 		})	
-		.then(function(response){				
-			$scope.invoiceFormData = response.data;
+		.then(function(response){
+			$scope.invoiceFormData = response.data.sowDetailsInfoList;
 			$scope.invoiceSowNo = sowNO;
 		})
 		$("#invoiceModal").modal("show"); 	
 	};
 	//Fetch Invoice Details End
 	
+	
+	$scope.showFunction = function(){
+		var $link = $(this);
+	    var $content = $link.parent().prev("div.text-content");
+	    var linkText = $link.text();
+
+	    $content.toggleClass("short-text, full-text");
+	    $link.text(getShowLinkText(linkText));
+	    return false;
+	}
+	function getShowLinkText(currentText) {
+	    var newText = '';
+	    if (currentText.toUpperCase() === "SHOW MORE") {
+	        newText = "Show less";
+	    } else {
+	        newText = "Show more";
+	    }
+	    return newText;
+	}
 });
 
+	//show less more start
+	/*$(".showMore").on("click", function(){
+		
+	    var $link = $(this);
+	    var $content = $link.parent().prev("div.text-content");
+	    var linkText = $link.text();
 
-
+	    $content.toggleClass("short-text, full-text");
+	    $link.text(getShowLinkText(linkText));
+	    return false;
+	});
+	function getShowLinkText(currentText) {
+	    var newText = '';
+	    if (currentText.toUpperCase() === "SHOW MORE") {
+	        newText = "Show less";
+	    } else {
+	        newText = "Show more";
+	    }
+	    return newText;
+	}*/
+	// show less more end

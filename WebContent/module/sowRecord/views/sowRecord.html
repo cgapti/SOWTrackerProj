@@ -60,8 +60,7 @@
 <table>
 							<tbody>
 								<tr ng-show="sowDetails.length != 0" ng-repeat="sowDetail in sowDetails | filter:curPlace">
-									<td>{{$index+1}}</td>
-									<td><a href="javascipt:void()" ng-click="GetInvoiceDetails(sowDetail.sowNo);">{{sowDetail.sowNo}}</a></td>
+									<td><a ng-click="GetInvoiceDetails(sowDetail.sowNo);">{{sowDetail.sowNo}}</a></td>
 									<td>{{sowDetail.pId}}</td>
 									<td>{{sowDetail.contractNo}}</td>
 									<td>{{sowDetail.poNo}}</td>
@@ -84,7 +83,10 @@
 									<td>{{sowDetail.customerToSpoc}}</td>
 									<td>{{sowDetail.customerCcSpoc}}</td>
 									<td>{{sowDetail.deliveryModel}}</td>
-									<td>{{sowDetail.sowRemarks}}</td>									
+									
+									
+									
+									<td><div class="text-content short-text">{{sowDetail.sowRemarks}}</div><div><button class="showMore">Show more</button></div></td>									
 									<td><button ng-click="GetUserDetails(sowDetail.sowNo);"
 											class="btn btn-primary">Update</button></td>
 								</tr>
@@ -726,6 +728,7 @@
 											<th>Contract No</th>
 											<th>PO Ref #</th>
 											<th>Project Description</th>
+											
 											<th>TechM Project Description</th>											
 											<th>Reference</th>
 											<th>SCB Division</th>
@@ -740,11 +743,12 @@
 											<td>{{invoiceDetail.sowNo}}</td>
 											<td>{{invoiceDetail.pId}}</td>
 											<td>{{invoiceDetail.contractNo}}</td>
-											<td>{{invoiceDetail.poNo}}</td>
+											<td>{{invoiceDetail.poNoRef}}</td>
 											<td>{{invoiceDetail.projectDtls}}</td>
 											
 											<td>{{invoiceDetail.techMPrjDesc}}</td>											
-											<td>{{invoiceDetail.invReference}}</td>
+											<td>{{invoiceDetail.ref}}</td>
+											<td>{{invoiceDetail.businessArea}}</td>
 											<td>{{invoiceDetail.digital}}</td>
 											<td>{{invoiceDetail.projectDtls}}</td>
 											<td>{{invoiceDetail.owner}}</td>
@@ -796,7 +800,7 @@
 											<td>{{invoiceDetail.paymentId}}</td>
 											
 											<td>{{invoiceDetail.invoiceStatus}}</td>
-											<td>{{invoiceDetail.remarks}}</td>
+											<td>{{invoiceDetail.sowRemarks}}</td>
 										</tr>
 									</tbody>
 								</table>

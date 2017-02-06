@@ -21,3 +21,8 @@ table {    table-layout:fixed;}
 
 #invoiceRecord {width: auto;}
 #invoiceRecord .table{	margin-top: 30px;	height: 500px !important;	overflow-x: visible; width: auto;}
+
+.text-content{line-height: 1em;}
+.short-text {overflow: hidden;    height: 3em;}
+.full-text{height: auto;}
+.show-more{padding: 10px 0;}

@@ -564,6 +564,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 				{headers: {'Content-Type': 'application/json'} 
 		})	
 		.then(function(response){
+			$scope.invoiceFormDataHead = response.data.sowInfo;	
 			$scope.invoiceFormData = response.data.sowDetailsInfoList;
 			$scope.invoiceSowNo = sowNO;
 		})

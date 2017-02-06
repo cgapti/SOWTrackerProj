@@ -28,6 +28,31 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		$window.location.reload();
 	}	
 	
+	// Code to generate the Excel report on click of 'Generate Excel' Link
+	$scope.generateExcel = function() {
+		var str="";
+		$(':checkbox:checked').each(function(i) {
+			str = str + (String($(this).attr('id'))) + ';';
+		});
+		
+		if (str=="") {
+			var SearchFieldsTable = $("#sowDetailsGrid thead tr");
+			var a = SearchFieldsTable.children();
+			for (i=0; i<a.length-1; i++) {
+				str = str + (String)(a[i].firstChild.nextSibling.id)+ ';';
+			}
+		}
+		$.ajax({
+		    url: "http://10.30.54.169:8084/sow/generateExcel",
+		    contentType: "application/json",
+		    type: 'POST',
+		    dataType: 'text',
+		    data: angular.toJson(str)
+		}).done(function(response){
+		    alert("Excel Report Generated Successfully. You can access the report from the path 10.30.0.101 --> Bitlocker -- > SOW Application -- > SOW Folder");
+		});
+	}
+	
 	//insert new records
 	$scope.addRecord = function(formData) {		
 		var owner 		= 	$("#form_owner option:selected").val();

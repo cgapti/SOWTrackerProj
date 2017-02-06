@@ -20,38 +20,38 @@
 							New Record</button>
 					</div>
 				</form>
+				<a ng-click="generateExcel();">Generate Excel</a> 
 			</div>
 			<div class="row">
 				<div class="col-md-12" id="sowRecd">
 					<div class="table-responsive">
-						<table class="table table-bordered table-striped table-condensed">
+						<table id="sowDetailsGrid" class="table table-bordered table-striped table-condensed">
 							<thead>
 								<tr>
-									<th>Sl.No</th>
-									<th>SOW Reference #*</th>
-									<th>PID</th>
-									<th>Contract No</th>
-									<th>PO Ref #</th>
-									<th>Owner</th>
-									<th>Engagement Model</th>
-									<th>Resource Count</th>
-									<th>Project Details</th>
-									<th>Contract Currency (USD, SGD,MYR,INR)</th>									
-									<th>SOW Value ( USD)</th>
-									<th>Value (million)</th>
-									<th>SOW Value (SGD)</th>
-									<th>SOW Value (MYR)</th>
-									<th>SOW Value (INR)</th>									
-									<th>Start Date (dd/mm/yyyy)</th>
-									<th>End Date (dd/mm/yyyy)</th>
-									<th>Status of the SOW /PO /Contract</th>
-									<th>Location</th>
-									<th>Business Area</th>
-									<th>Delivery SPOC</th>									
-									<th>Customer TO SPOC</th>
-									<th>Customer CC SPOC</th>
-									<th>Delivery Model</th>
-									<th>Remarks</th>
+									<th>SOW Reference #* <input type="checkbox" id="SOW Reference #"></th>
+									<th>PID <input type="checkbox" id="PID"></th>
+									<th>Contract No <input type="checkbox" id="Contract No"></th>
+									<th>PO Ref # <input type="checkbox" id="PO Ref #"></th>
+									<th>Owner <input type="checkbox" id="Owner"></th>
+									<th>Engagement Model <input type="checkbox" id="Engagement Model"></th>
+									<th>Resource Count <input type="checkbox" id="Resource Count"></th>
+									<th>Project Details <input type="checkbox" id="Project Details"></th>
+									<th>Contract Currency (USD, SGD,MYR,INR) <input type="checkbox" id="Contract Currency (USD, SGD,MYR,INR)"></th>									
+									<th>SOW Value ( USD) <input type="checkbox" id="SOW Value ( USD)"></th>
+									<th>Value (mn) <input type="checkbox" id="Value (mn)"></th>
+									<th>SOW Value (SGD) <input type="checkbox" id="SOW Value (SGD)"></th>
+									<th>SOW Value (MYR) <input type="checkbox" id="SOW Value (MYR)"></th>
+									<th>SOW Value (INR) <input type="checkbox" id="SOW Value (INR)"></th>									
+									<th>Start Date <input type="checkbox" id="Start Date"></th>
+									<th>End Date <input type="checkbox" id="End Date"></th>
+									<th>Status of the SOW /PO /Contract <input type="checkbox" id="Status of the SOW /PO /Contract"></th>
+									<th>Location <input type="checkbox" id="Location"></th>
+									<th>Business Area <input type="checkbox" id="Business Area"></th>
+									<th>Delivery SPOC <input type="checkbox" id="Delivery SPOC"></th>									
+									<th>Customer TO SPOC <input type="checkbox" id="Customer TO SPOC"></th>
+									<th>Customer CC SPOC <input type="checkbox" id="Customer CC SPOC"></th>
+									<th>Delivery Model(Staff Aug) <input type="checkbox" id="Delivery Model(Staff Aug)"></th>
+									<th>Remarks <input type="checkbox" id="Remarks"></th>
 									<th>Update</th>
 								</tr>
 							</thead>
